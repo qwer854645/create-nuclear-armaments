@@ -5,6 +5,7 @@ import com.createnucleararmaments.index.CNACreativeTab;
 import com.createnucleararmaments.index.CNAItems;
 import com.createnucleararmaments.index.CNAMunitions;
 import com.createnucleararmaments.munitions.EdgeFractureScheduler;
+import com.createnucleararmaments.network.CNANetwork;
 import com.createnucleararmaments.munitions.RadiationZoneScheduler;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.bus.api.IEventBus;
@@ -27,6 +28,8 @@ public class CreateNuclearArmaments {
         CNAItems.register();
         CNAMunitions.register();
         CNAPlacedNuclearDevices.register();
+
+        modEventBus.addListener(CNANetwork::register);
 
         NeoForge.EVENT_BUS.addListener(CreateNuclearArmaments::onServerTick);
 

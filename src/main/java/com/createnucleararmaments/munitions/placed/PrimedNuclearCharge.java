@@ -3,7 +3,6 @@ package com.createnucleararmaments.munitions.placed;
 import com.createnucleararmaments.index.CNAPlacedNuclearDevices;
 import com.createnucleararmaments.munitions.NuclearDetonation;
 import com.createnucleararmaments.munitions.NuclearTier;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,7 +18,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class PrimedNuclearCharge extends Entity {
-    public static final int FUSE_TICKS = 1200;
+    public static final int FUSE_SECONDS = 45;
+    public static final int CRITICAL_FUSE_SECONDS = 10;
+    public static final int FUSE_TICKS = FUSE_SECONDS * 20;
+    public static final int CRITICAL_FUSE_TICKS = CRITICAL_FUSE_SECONDS * 20;
 
     private static final EntityDataAccessor<Integer> DATA_FUSE = SynchedEntityData.defineId(PrimedNuclearCharge.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TIER = SynchedEntityData.defineId(PrimedNuclearCharge.class, EntityDataSerializers.INT);
@@ -66,17 +68,9 @@ public class PrimedNuclearCharge extends Entity {
             return;
         }
 
-        this.level().addParticle(
-                ParticleTypes.SMOKE,
-                this.getX(),
-                this.getY() + 0.5D,
-                this.getZ(),
-                0.0D,
-                0.0D,
-                0.0D
-        );
         if (fuse % 20 == 0) {
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
+            float pitch = fuse <= CRITICAL_FUSE_TICKS ? 1.25F : 1.0F;
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, pitch);
         }
     }
 

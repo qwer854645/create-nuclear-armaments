@@ -1,5 +1,6 @@
 package com.createnucleararmaments.munitions;
 
+import com.createnucleararmaments.network.CNANetwork;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -35,6 +36,7 @@ public final class NuclearDetonation {
         BlockPos pos = BlockPos.containing(center);
         float radius = tier.blastRadius();
 
+        CNANetwork.sendMushroomCloud(serverLevel, center, tier);
         playDetonationEffects(serverLevel, center, tier, pos, radius);
         clearSphere(serverLevel, center, radius);
         clearFluidSourcesInSphere(serverLevel, center, radius + FLUID_SOURCE_EXTRA_RADIUS);
@@ -56,6 +58,46 @@ public final class NuclearDetonation {
         level.sendParticles(ParticleTypes.EXPLOSION, center.x, center.y, center.z, 24 + tier.tier() * 16, spread, spread, spread, 0.02D);
         level.sendParticles(ParticleTypes.LARGE_SMOKE, center.x, center.y, center.z, 32 + tier.tier() * 20, spread, spread, spread, 0.015D);
         level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, center.x, center.y, center.z, 20 + tier.tier() * 12, spread * 0.85D, spread * 0.85D, spread * 0.85D, 0.01D);
+        spawnInitialGroundBurst(level, center, radius, tier.tier());
+    }
+
+    private static void spawnInitialGroundBurst(ServerLevel level, Vec3 center, float radius, int tier) {
+        double groundSpread = radius * 0.55D;
+        level.sendParticles(
+                ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                center.x,
+                center.y,
+                center.z,
+                14 + tier * 6,
+                groundSpread,
+                0.35D,
+                groundSpread,
+                0.008D
+        );
+        level.sendParticles(
+                ParticleTypes.LARGE_SMOKE,
+                center.x,
+                center.y,
+                center.z,
+                10 + tier * 5,
+                groundSpread * 0.9D,
+                0.25D,
+                groundSpread * 0.9D,
+                0.006D
+        );
+        if (tier >= 2) {
+            level.sendParticles(
+                    ParticleTypes.FLAME,
+                    center.x,
+                    center.y,
+                    center.z,
+                    6 + tier * 3,
+                    groundSpread * 0.45D,
+                    0.15D,
+                    groundSpread * 0.45D,
+                    0.012D
+            );
+        }
     }
 
     /** Removes every breakable block inside the blast sphere. */
@@ -117,7 +159,9 @@ public final class NuclearDetonation {
     private static void applyBlastDamage(ServerLevel level, Vec3 center, NuclearTier tier, float radius) {
         float maxDamage = tier.entityExplosionPower();
         float maxKnockback = 2.5F + tier.tier() * 2.0F;
-        DamageSource damageSource = level.damageSources().explosion(null, null);
+        float maxFireSeconds = 5.0F + tier.tier() * 4.0F;
+        DamageSource explosionSource = level.damageSources().explosion(null, null);
+        DamageSource fireSource = level.damageSources().onFire();
         AABB area = new AABB(center, center).inflate(radius);
 
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area)) {
@@ -130,7 +174,17 @@ public final class NuclearDetonation {
             intensity *= intensity;
             float damage = maxDamage * intensity;
             if (damage > 0.5F) {
-                entity.hurt(damageSource, damage);
+                entity.hurt(explosionSource, damage);
+            }
+
+            float thermalDamage = maxDamage * 0.45F * intensity;
+            if (thermalDamage > 0.5F) {
+                entity.hurt(fireSource, thermalDamage);
+            }
+
+            int fireSeconds = Mth.floor(maxFireSeconds * intensity);
+            if (fireSeconds > 0) {
+                entity.setRemainingFireTicks(fireSeconds * 20);
             }
 
             if (intensity <= 0.01F) {
