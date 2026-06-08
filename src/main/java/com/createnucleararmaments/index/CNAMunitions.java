@@ -54,13 +54,9 @@ public final class CNAMunitions {
             ENTITIES.put(kind, entities);
 
             for (NuclearTier tier : NuclearTier.VALUES) {
-                if (kind == MunitionKind.ROCKET && tier == NuclearTier.T3) {
-                    continue;
-                }
                 registerPair(kind, tier, blocks, entities);
             }
         }
-        CNAMediumMissiles.register();
         CNABlockEntities.register(ALL_MUNITION_BLOCKS);
     }
 

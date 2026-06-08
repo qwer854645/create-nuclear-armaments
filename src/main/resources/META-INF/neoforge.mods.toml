@@ -50,10 +50,3 @@ type = "optional"
 versionRange = "${cbcmoreshells_version_range}"
 ordering = "AFTER"
 side = "BOTH"
-
-[[dependencies.${mod_id}]]
-modId = "cbc_at"
-type = "optional"
-versionRange = "${cbc_at_version_range}"
-ordering = "AFTER"
-side = "BOTH"

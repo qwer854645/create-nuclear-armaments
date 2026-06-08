@@ -1,10 +1,10 @@
 {
   "type": "create:sequenced_assembly",
   "ingredient": {
-    "id": "cbc_at:medium_he_rocket_item"
+    "id": "cbcmoreshells:he_rocket"
   },
   "transitional_item": {
-    "id": "cbc_at:medium_he_rocket_item"
+    "id": "cbcmoreshells:he_rocket"
   },
   "loops": 192,
   "sequence": [
@@ -12,7 +12,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "id": "cbc_at:medium_he_rocket_item"
+          "id": "cbcmoreshells:he_rocket"
         },
         {
           "id": "createnucleararmaments:armament_uranium_billet"
@@ -20,7 +20,7 @@
       ],
       "results": [
         {
-          "id": "cbc_at:medium_he_rocket_item"
+          "id": "cbcmoreshells:he_rocket"
         }
       ]
     }

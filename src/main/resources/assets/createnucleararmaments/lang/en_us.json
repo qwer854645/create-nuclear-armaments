@@ -17,6 +17,7 @@
   "block.createnucleararmaments.nuclear_bomb_t3": "Strategic Nuclear Bomb",
   "block.createnucleararmaments.nuclear_rocket_t1": "Tactical Nuclear Rocket",
   "block.createnucleararmaments.nuclear_rocket_t2": "Operational Nuclear Rocket",
+  "block.createnucleararmaments.nuclear_rocket_t3": "Strategic Nuclear Rocket",
   "block.createnucleararmaments.nuclear_charge_t1": "Tactical Nuclear Charge",
   "block.createnucleararmaments.nuclear_charge_t2": "Operational Nuclear Charge",
   "block.createnucleararmaments.nuclear_charge_t3": "Strategic Nuclear Charge",
@@ -24,7 +25,6 @@
   "item.createnucleararmaments.nuclear_charge_t2": "Operational Nuclear Charge",
   "item.createnucleararmaments.nuclear_charge_t3": "Strategic Nuclear Charge",
   "entity.createnucleararmaments.primed_nuclear_charge": "Primed Nuclear Charge",
-  "item.createnucleararmaments.nuclear_rocket_t3": "Strategic Nuclear Missile",
   "block.createnucleararmaments.nuclear_shell_t1.tooltip.ballisticInfo": "Tactical Nuclear Shell",
   "block.createnucleararmaments.nuclear_shell_t1.tooltip.ballisticInfo.main": "Big-cannon nuclear shell. Durability mass is _%s_, penetration is _%s_, bounce start angle is _%s_deg, explosive force is _%s_",
   "block.createnucleararmaments.nuclear_shell_t1.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_. Detonates on impact with edge fracture. Inert when placed as a block.",
@@ -49,6 +49,9 @@
   "block.createnucleararmaments.nuclear_rocket_t2.tooltip.ballisticInfo": "Operational Nuclear Rocket",
   "block.createnucleararmaments.nuclear_rocket_t2.tooltip.ballisticInfo.main": "Rocket-rack nuclear rocket. Durability mass is _%s_, penetration is _%s_, bounce start angle is _%s_deg, explosive force is _%s_, total lifetime is _%s_s, steady state velocity is _%s_m/s, thrust time is _%s_s",
   "block.createnucleararmaments.nuclear_rocket_t2.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_. Detonates on impact with edge fracture. Inert when placed as a block.",
+  "block.createnucleararmaments.nuclear_rocket_t3.tooltip.ballisticInfo": "Strategic Nuclear Rocket",
+  "block.createnucleararmaments.nuclear_rocket_t3.tooltip.ballisticInfo.main": "Rocket-rack nuclear rocket. Durability mass is _%s_, penetration is _%s_, bounce start angle is _%s_deg, explosive force is _%s_, total lifetime is _%s_s, steady state velocity is _%s_m/s, thrust time is _%s_s",
+  "block.createnucleararmaments.nuclear_rocket_t3.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_. Detonates on impact with edge fracture. Inert when placed as a block.",
   "block.createnucleararmaments.nuclear_torpedo_t1.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_. Detonates on impact with edge fracture. Inert when placed as a block.",
   "block.createnucleararmaments.nuclear_torpedo_t2.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_. Detonates on impact with edge fracture. Inert when placed as a block.",
   "block.createnucleararmaments.nuclear_torpedo_t3.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_. Detonates on impact with edge fracture. Inert when placed as a block.",
@@ -71,5 +74,5 @@
   "item.createnucleararmaments.nuclear_charge_t3.tooltip.desc": "Placed charge activated by _redstone_. _45 s_ fuse after priming, then detonates in place. _Pulses white_, then _pulses red_ in the final _10 s_.",
   "item.createnucleararmaments.nuclear_charge_t3.tooltip.nuclear": "Nuclear yield _~%s kt_. Blast crater _~%s blocks_, radiation zone _~%s blocks_, lingering radiation _~%s s_.",
   "createnucleararmaments.ponder.nuclear_fill.header": "Nuclear Munition Filling",
-  "createnucleararmaments.ponder.nuclear_fill.text": "Deploy Armament Uranium Billets onto base munitions at a Sequenced Assembly line. Strategic rockets use CBC Advanced Technology medium missile bodies."
+  "createnucleararmaments.ponder.nuclear_fill.text": "Deploy Armament Uranium Billets onto base munitions at a Sequenced Assembly line. Higher tiers require more deployment loops."
 }

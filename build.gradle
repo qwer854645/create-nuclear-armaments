@@ -84,7 +84,6 @@ dependencies {
     compileOnly files('libs/createbigcannons-5.11.5+mc.1.21.1.jar')
     compileOnly files('libs/CBC-Military-Supplement-1.21.1-2.1.0.jar')
     compileOnly files('libs/createnuclear-1.3.2-beta.3-neoforge.jar')
-    compileOnly files('libs/cbc_at_Neoforge_1.21.1_0.1.4c.jar')
 
     devRuntimeMods("com.simibubi.create:create-${minecraft_version}:${create_version}") {
         transitive = false
@@ -100,6 +99,7 @@ tasks.register('copyDevMods', Copy) {
     into layout.projectDirectory.dir('run/mods')
     from('libs') {
         include '*.jar'
+        exclude '*cbc_at*'
     }
     from configurations.devRuntimeMods
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -139,7 +139,6 @@ processResources {
             createnuclear_version_range    : createnuclear_version_range,
             createbigcannons_version_range : createbigcannons_version_range,
             cbcmoreshells_version_range    : cbcmoreshells_version_range,
-            cbc_at_version_range           : cbc_at_version_range,
     ]
     inputs.properties replaceProperties
 

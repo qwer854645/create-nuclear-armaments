@@ -29,9 +29,6 @@ public enum MunitionKind {
     }
 
     public String baseItemId(NuclearTier tier) {
-        if (this == ROCKET && tier == NuclearTier.T3) {
-            return "cbc_at:medium_he_rocket_item";
-        }
         return baseItemId;
     }
 
