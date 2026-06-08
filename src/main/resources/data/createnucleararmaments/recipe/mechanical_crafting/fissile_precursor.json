@@ -1,0 +1,31 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "pattern": [
+    "HEHHEHH",
+    "EFPFEPF",
+    "HEHHEHH",
+    "EFPFEPF",
+    "HEHHEHH",
+    "EFPFEPF",
+    "HEHHEHH"
+  ],
+  "key": {
+    "H": {
+      "id": "createnucleararmaments:heu_compound"
+    },
+    "E": {
+      "id": "create:electron_tube"
+    },
+    "F": {
+      "id": "createnuclear:uranium_rod"
+    },
+    "P": {
+      "id": "create:sturdy_sheet"
+    }
+  },
+  "result": {
+    "id": "createnucleararmaments:fissile_precursor",
+    "count": 1
+  }
+}

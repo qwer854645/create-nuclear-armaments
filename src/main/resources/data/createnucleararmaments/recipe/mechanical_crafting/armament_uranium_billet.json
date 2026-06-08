@@ -1,0 +1,27 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": true,
+  "pattern": [
+    "FPFPFPFPF",
+    "PFPFPFPFP",
+    "FPFPFPFPF",
+    "PFPFPFPFP",
+    "FPFPFPFPF",
+    "PFPFPFPFP",
+    "FPFPFPFPF",
+    "PFPFPFPFP",
+    "FPFPFPFPF"
+  ],
+  "key": {
+    "F": {
+      "id": "createnucleararmaments:fissile_precursor"
+    },
+    "P": {
+      "id": "createnucleararmaments:heu_compound"
+    }
+  },
+  "result": {
+    "id": "createnucleararmaments:armament_uranium_billet",
+    "count": 1
+  }
+}

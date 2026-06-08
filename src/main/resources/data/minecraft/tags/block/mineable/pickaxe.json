@@ -1,0 +1,18 @@
+{
+  "values": [
+    "createnucleararmaments:nuclear_shell_t1",
+    "createnucleararmaments:nuclear_shell_t2",
+    "createnucleararmaments:nuclear_shell_t3",
+    "createnucleararmaments:nuclear_torpedo_t1",
+    "createnucleararmaments:nuclear_torpedo_t2",
+    "createnucleararmaments:nuclear_torpedo_t3",
+    "createnucleararmaments:nuclear_bomb_t1",
+    "createnucleararmaments:nuclear_bomb_t2",
+    "createnucleararmaments:nuclear_bomb_t3",
+    "createnucleararmaments:nuclear_rocket_t1",
+    "createnucleararmaments:nuclear_rocket_t2",
+    "createnucleararmaments:nuclear_charge_t1",
+    "createnucleararmaments:nuclear_charge_t2",
+    "createnucleararmaments:nuclear_charge_t3"
+  ]
+}

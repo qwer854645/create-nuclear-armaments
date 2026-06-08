@@ -1,0 +1,149 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'net.neoforged.moddev' version "${moddevgradle_version}"
+}
+
+group = mod_group_id
+version = mod_version
+
+base {
+    archivesName = mod_id
+}
+
+layout.buildDirectory.set(file('C:/Users/Administrator.WIN-CARR4T5KVM6/AppData/Local/create-nuclear-armaments/build'))
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = neo_version
+
+    parchment {
+        minecraftVersion = parchment_minecraft_version
+        mappingsVersion = parchment_mappings_version
+    }
+
+    runs {
+        configureEach {
+            systemProperty 'forge.logging.console.level', 'info'
+        }
+
+        client {
+            client()
+            gameDirectory = project.file('run')
+        }
+
+        server {
+            server()
+            gameDirectory = project.file('run/server')
+        }
+
+        data {
+            data()
+            gameDirectory = project.file('run')
+            programArguments.addAll '--mod', mod_id, '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', file('src/main/resources/').absolutePath
+        }
+    }
+
+    mods {
+        createnucleararmaments {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.createmod.net' }
+    maven { url = 'https://maven.ithundxr.dev/snapshots' }
+    maven { url = 'https://maven.blamejared.com' }
+    maven {
+        url = 'https://maven.realrobotix.me/master/'
+        content {
+            includeGroup 'com.rbasamoyai'
+        }
+    }
+}
+
+configurations {
+    devRuntimeMods
+}
+
+dependencies {
+    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    compileOnly("com.simibubi.create:create-${minecraft_version}:${create_version}") {
+        artifact { classifier = 'slim' }
+        transitive = false
+    }
+    compileOnly("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
+
+    compileOnly files('libs/createbigcannons-5.11.5+mc.1.21.1.jar')
+    compileOnly files('libs/CBC-Military-Supplement-1.21.1-2.1.0.jar')
+    compileOnly files('libs/createnuclear-1.3.2-beta.3-neoforge.jar')
+    compileOnly files('libs/cbc_at_Neoforge_1.21.1_0.1.4c.jar')
+
+    devRuntimeMods("com.simibubi.create:create-${minecraft_version}:${create_version}") {
+        transitive = false
+    }
+    devRuntimeMods("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
+    devRuntimeMods("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+    devRuntimeMods("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}+mc.${minecraft_version}-neoforge") {
+        transitive = false
+    }
+}
+
+tasks.register('copyDevMods', Copy) {
+    into layout.projectDirectory.dir('run/mods')
+    from('libs') {
+        include '*.jar'
+    }
+    from configurations.devRuntimeMods
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.matching { it.name == 'runClient' || it.name == 'runServer' }.configureEach {
+    dependsOn copyDevMods
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.incremental = false
+    options.forkOptions.memoryMaximumSize = '2g'
+    options.forkOptions.jvmArgs += '-Djava.io.tmpdir=C:/Users/Administrator.WIN-CARR4T5KVM6/AppData/Local/Temp'
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    def replaceProperties = [
+            minecraft_version              : minecraft_version,
+            minecraft_version_range        : minecraft_version_range,
+            neo_version                    : neo_version,
+            neo_version_range              : neo_version_range,
+            loader_version_range           : loader_version_range,
+            mod_id                         : mod_id,
+            mod_name                       : mod_name,
+            mod_license                    : mod_license,
+            mod_version                    : mod_version,
+            mod_authors                    : mod_authors,
+            mod_description                : mod_description,
+            create_version_range           : create_version_range,
+            createnuclear_version_range    : createnuclear_version_range,
+            createbigcannons_version_range : createbigcannons_version_range,
+            cbcmoreshells_version_range    : cbcmoreshells_version_range,
+            cbc_at_version_range           : cbc_at_version_range,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "id": "cbcmoreshells:he_rocket"
+  },
+  "transitional_item": {
+    "id": "cbcmoreshells:he_rocket"
+  },
+  "loops": 48,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "id": "cbcmoreshells:he_rocket"
+        },
+        {
+          "id": "createnucleararmaments:armament_uranium_billet"
+        }
+      ],
+      "results": [
+        {
+          "id": "cbcmoreshells:he_rocket"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_rocket_t2"
+    }
+  ]
+}

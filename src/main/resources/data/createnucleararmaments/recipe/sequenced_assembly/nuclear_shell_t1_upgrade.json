@@ -1,0 +1,34 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "id": "createnucleararmaments:nuclear_shell_t1"
+  },
+  "transitional_item": {
+    "id": "createnucleararmaments:nuclear_shell_t1"
+  },
+  "loops": 36,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "id": "createnucleararmaments:nuclear_shell_t1"
+        },
+        {
+          "id": "createnucleararmaments:armament_uranium_billet"
+        }
+      ],
+      "results": [
+        {
+          "id": "createnucleararmaments:nuclear_shell_t1"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_shell_t2"
+    }
+  ]
+}

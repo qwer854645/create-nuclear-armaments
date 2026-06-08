@@ -1,0 +1,52 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:enriched_yellowcake"
+    },
+    {
+      "id": "createnuclear:lead_ingot"
+    },
+    {
+      "id": "createnuclear:lead_ingot"
+    },
+    {
+      "id": "create:brass_ingot"
+    },
+    {
+      "id": "create:brass_ingot"
+    },
+    {
+      "fluid": "createnuclear:uranium",
+      "amount": 1000
+    }
+  ],
+  "results": [
+    {
+      "id": "createnucleararmaments:heu_compound",
+      "count": 8
+    }
+  ],
+  "heatRequirement": "heated"
+}

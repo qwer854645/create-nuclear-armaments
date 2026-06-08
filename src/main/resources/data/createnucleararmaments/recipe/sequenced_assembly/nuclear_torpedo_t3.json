@@ -1,0 +1,34 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "id": "cbcmoreshells:short_range_torpedo"
+  },
+  "transitional_item": {
+    "id": "cbcmoreshells:short_range_torpedo"
+  },
+  "loops": 192,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "id": "cbcmoreshells:short_range_torpedo"
+        },
+        {
+          "id": "createnucleararmaments:armament_uranium_billet"
+        }
+      ],
+      "results": [
+        {
+          "id": "cbcmoreshells:short_range_torpedo"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_torpedo_t3"
+    }
+  ]
+}

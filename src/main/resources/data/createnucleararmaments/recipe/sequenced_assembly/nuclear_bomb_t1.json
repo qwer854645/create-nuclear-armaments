@@ -1,0 +1,34 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "id": "cbcmoreshells:he_bomb"
+  },
+  "transitional_item": {
+    "id": "cbcmoreshells:he_bomb"
+  },
+  "loops": 12,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "id": "cbcmoreshells:he_bomb"
+        },
+        {
+          "id": "createnucleararmaments:armament_uranium_billet"
+        }
+      ],
+      "results": [
+        {
+          "id": "cbcmoreshells:he_bomb"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_bomb_t1"
+    }
+  ]
+}

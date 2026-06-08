@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "RRR",
+    "RBR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "id": "minecraft:redstone"
+    },
+    "B": {
+      "id": "createnucleararmaments:nuclear_bomb_t3"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "createnucleararmaments:nuclear_charge_t3"
+  }
+}
