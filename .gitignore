@@ -13,3 +13,4 @@ out/
 bin/
 *.log
 src/generated/
+libs/*.jar
