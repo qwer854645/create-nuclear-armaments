@@ -20,20 +20,20 @@ Weapons-grade nuclear munitions for the Create ecosystem — shells, bombs, rock
   起爆表现：蘑菇云、边缘碎裂、辐射沉降地形改造
 - Chain ignition: TNT, CBC munition blocks, and placed charges can cascade  
   连锁点燃：TNT、CBC 弹药方块、放置核弹可连环引爆
-- Soft dependencies: content and recipes load only when companion mods are present  
-  软依赖：仅在对应模组存在时注册内容并启用配方
+- Soft dependencies: CBC / CBCMS / Create Nuclear content and recipes load only when those mods are present  
+  软依赖：仅在 CBC / CBCMS / Create Nuclear 存在时注册对应内容并启用配方
 
 ## Dependencies / 依赖
 
 | Mod | Required? | Notes |
 |-----|-----------|--------|
 | Minecraft 1.21.1 + NeoForge | **Yes** | — |
-| [Create](https://modrinth.com/mod/create) 6.x | Optional | Without Create: core charges/explosion still load; **all recipes disabled** |
+| [Create](https://modrinth.com/mod/create) 6.x | **Yes** | Registration via CreateRegistrate |
 | [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | Materials + radiation effects |
 | [Create Big Cannons](https://modrinth.com/mod/create-big-cannons) | Optional | Nuclear shells |
 | [CBC More Shells](https://modrinth.com/mod/cbc-more-shells) (Military Supplement) | Optional | Nuclear bombs / rockets / torpedoes |
 
-无 Create 时：放置核弹与爆炸逻辑仍可加载，但**全部配方不生效**。无 CBC / CBCMS 时不注册对应核弹药。
+无 CBC / CBCMS 时不注册对应核弹药；无 Create Nuclear 时不注册核材料物品。
 
 ## Important notes / 注意事项
 

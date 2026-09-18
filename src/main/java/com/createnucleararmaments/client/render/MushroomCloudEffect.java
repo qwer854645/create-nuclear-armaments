@@ -148,7 +148,7 @@ public final class MushroomCloudEffect {
         float stemT = smoothstep(0.0F, profile.stemRiseTicks(), age);
         double stemTop = center.y + profile.stemHeight() * stemT;
 
-        int stemCount = 8 + tier * 3;
+        int stemCount = 10 + tier * 4;
         for (int i = 0; i < stemCount; i++) {
             double angle = random.nextDouble() * Math.PI * 2.0D;
             double radius = profile.stemBaseRadius() * (0.25D + random.nextDouble() * 0.85D)
@@ -161,7 +161,7 @@ public final class MushroomCloudEffect {
                     y,
                     center.z + Math.sin(angle) * radius * taper,
                     (random.nextDouble() - 0.5D) * 0.008D,
-                    0.06D + random.nextDouble() * 0.05D,
+                    0.09D + random.nextDouble() * 0.07D,
                     (random.nextDouble() - 0.5D) * 0.008D
             );
         }
@@ -209,6 +209,7 @@ public final class MushroomCloudEffect {
         }
 
         int points = 14 + tier * 6;
+        int fallCount = (int) ((12 + tier * 5) * (0.4F + 0.6F * ringT));
         for (int i = 0; i < points; i++) {
             double angle = (Math.PI * 2.0D * i) / points + random.nextDouble() * 0.2D;
             double jitter = radius * (0.92D + random.nextDouble() * 0.12D);
@@ -230,6 +231,43 @@ public final class MushroomCloudEffect {
                     0.02D + random.nextDouble() * 0.03D,
                     Math.sin(angle) * outward
             );
+        }
+        for (int i = 0; i < fallCount; i++) {
+            double angle = random.nextDouble() * Math.PI * 2.0D;
+            double cos = Math.cos(angle);
+            double sin = Math.sin(angle);
+            double r = radius * (0.7D + random.nextDouble() * 0.38D);
+            double x = center.x + cos * r;
+            double z = center.z + sin * r;
+            int blockX = Mth.floor(x);
+            int blockZ = Mth.floor(z);
+            if (!level.hasChunk(blockX >> 4, blockZ >> 4)) {
+                continue;
+            }
+            int groundY = level.getHeight(Heightmap.Types.MOTION_BLOCKING, blockX, blockZ);
+            double y = groundY + 0.3D + random.nextDouble() * 2.2D;
+            double outward = 0.03D + ringT * 0.06D;
+            double fall = -0.03D - random.nextDouble() * 0.05D;
+            level.addAlwaysVisibleParticle(
+                    ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                    x,
+                    y,
+                    z,
+                    cos * outward,
+                    fall,
+                    sin * outward
+            );
+            if (random.nextFloat() < 0.4F) {
+                level.addAlwaysVisibleParticle(
+                        ParticleTypes.LARGE_SMOKE,
+                        x,
+                        y,
+                        z,
+                        cos * outward * 0.7D,
+                        fall * 0.85D,
+                        sin * outward * 0.7D
+                );
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 package com.createnucleararmaments.index;
 
 import com.createnucleararmaments.CNArmaments;
-import com.createnucleararmaments.compat.CreateCompat;
 import com.createnucleararmaments.compat.CreateNuclearBridge;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.Item;
@@ -18,7 +17,7 @@ public final class CNAItems {
     }
 
     public static void register() {
-        if (!CreateCompat.isLoaded() || !CreateNuclearBridge.isLoaded()) {
+        if (!CreateNuclearBridge.isLoaded()) {
             return;
         }
 

@@ -22,6 +22,6 @@ public class NuclearChargeBlockItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
-        NuclearMunitionTooltips.appendChargeShiftStats(stack, context, tooltip, flag, tier);
+        NuclearMunitionTooltips.appendNuclearYieldNote(stack, tooltip, tier);
     }
 }

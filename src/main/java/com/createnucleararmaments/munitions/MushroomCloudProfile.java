@@ -21,7 +21,7 @@ public record MushroomCloudProfile(
         int dissipateStartTick,
         int endTicks
 ) {
-    private static final float TIMING_SCALE = 0.95F;
+    private static final float TIMING_SCALE = 0.72F;
 
     private static int scaled(int ticks) {
         return Math.max(12, Math.round(ticks * TIMING_SCALE));
@@ -33,7 +33,7 @@ public record MushroomCloudProfile(
 
         double stemHeight = 32.0D + yieldScale * 9.0D + tier.blastRadius() * 0.4D;
         double capRadius = 14.0D + yieldScale * 4.8D + tier.blastRadius() * 0.2D;
-        int stemRiseTicks = scaled(90 + level * 22);
+        int stemRiseTicks = scaled(58 + level * 14);
         int capStartTick = (int) (stemRiseTicks * 0.35F);
         int capExpandTicks = scaled(100 + level * 28);
         int rollStartTick = capStartTick + capExpandTicks / 4;

@@ -119,6 +119,7 @@ dependencies {
 }
 
 tasks.register('copyDevMods', Copy) {
+    onlyIf { !project.hasProperty('bareClient') }
     into file('run/mods')
     from('libs') {
         include '*.jar'
@@ -128,8 +129,35 @@ tasks.register('copyDevMods', Copy) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+tasks.register('prepareBareClientMods') {
+    group = 'neoforge'
+    description = 'Keep Create stack; remove optional CBC / CBCMS / Create Nuclear jars'
+    onlyIf { project.hasProperty('bareClient') }
+    doLast {
+        def modsDir = file('run/mods')
+        modsDir.mkdirs()
+        def keepPrefixes = ['create-', 'ponder-', 'flywheel-', 'ritchiesprojectilelib']
+        modsDir.listFiles()?.each { File f ->
+            if (!f.name.toLowerCase().endsWith('.jar')) {
+                return
+            }
+            def keep = keepPrefixes.any { f.name.toLowerCase().startsWith(it) }
+            if (!keep) {
+                f.delete()
+            }
+        }
+        // Ensure Create runtime jars are present even if copyDevMods was skipped
+        copy {
+            into modsDir
+            from configurations.devRuntimeMods
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }
+    }
+}
+
 tasks.matching { it.name == 'runClient' || it.name == 'runServer' }.configureEach {
     dependsOn copyDevMods
+    dependsOn prepareBareClientMods
 }
 
 tasks.withType(JavaCompile).configureEach {

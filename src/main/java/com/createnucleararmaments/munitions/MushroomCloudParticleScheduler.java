@@ -90,9 +90,9 @@ public final class MushroomCloudParticleScheduler {
             this.tier = tier;
             this.startTick = startTick;
             int t = tier.tier();
-            // Slightly quicker stem than the last pass (~4.5–7.5s).
-            this.stemRiseTicks = 95 + t * 24;
-            this.capStartAge = (int) (stemRiseTicks * 0.35F);
+            // Snappier stem climb (~2.5–4s depending on tier).
+            this.stemRiseTicks = 55 + t * 14;
+            this.capStartAge = (int) (stemRiseTicks * 0.32F);
             this.durationTicks = stemRiseTicks + 160 + t * 60;
             double yield = Math.sqrt(tier.yieldKilotons());
             this.stemHeight = 30.0D + yield * 9.0D + tier.blastRadius() * 0.4D;
@@ -113,8 +113,8 @@ public final class MushroomCloudParticleScheduler {
 
             RandomSource random = level.getRandom();
             float life = age / (float) durationTicks;
-            // Ease-out rise: fast-ish start then slows — still much slower overall than before.
-            float stemT = 1.0F - (float) Math.pow(1.0F - Mth.clamp(age / (float) stemRiseTicks, 0.0F, 1.0F), 1.55F);
+            // Ease-out rise: quicker climb than before.
+            float stemT = 1.0F - (float) Math.pow(1.0F - Mth.clamp(age / (float) stemRiseTicks, 0.0F, 1.0F), 1.25F);
             double stemTop = center.y + stemHeight * stemT;
             int t = tier.tier();
 
@@ -177,8 +177,8 @@ public final class MushroomCloudParticleScheduler {
                 double radius = stemRadius * taper * (0.45D + random.nextDouble() * 0.7D);
                 double x = center.x + Math.cos(angle) * radius;
                 double z = center.z + Math.sin(angle) * radius;
-                // Slightly snappier climb
-                double rise = 0.034D + (1.0D - stemT) * 0.042D;
+                // Faster vertical climb
+                double rise = 0.06D + (1.0D - stemT) * 0.07D;
                 smoke(level, x, y, z, (random.nextDouble() - 0.5D) * 0.012D, rise, (random.nextDouble() - 0.5D) * 0.012D);
                 if (random.nextFloat() < 0.22F) {
                     particle(level, ParticleTypes.LARGE_SMOKE, x, y, z, 0, rise * 0.85D, 0);
@@ -221,8 +221,8 @@ public final class MushroomCloudParticleScheduler {
             float ringT = smooth(age / 175.0F);
             double radius = ringRadius * ringT;
             int points = 20 + t * 8;
-            // Curtain density ramps as the skirt opens, then eases off near the end.
-            int fallCount = (int) ((4 + t * 2) * (0.35F + 0.65F * ringT));
+            // Dense falling curtain under the expanding skirt.
+            int fallCount = (int) ((14 + t * 6) * (0.45F + 0.55F * ringT));
             for (int i = 0; i < points; i++) {
                 double angle = (Math.PI * 2.0D * i) / points + random.nextDouble() * 0.08D;
                 double cos = Math.cos(angle);
@@ -250,18 +250,18 @@ public final class MushroomCloudParticleScheduler {
                 double angle = random.nextDouble() * Math.PI * 2.0D;
                 double cos = Math.cos(angle);
                 double sin = Math.sin(angle);
-                double r = radius * (0.82D + random.nextDouble() * 0.22D);
+                double r = radius * (0.72D + random.nextDouble() * 0.35D);
                 double x = center.x + cos * r;
                 double z = center.z + sin * r;
-                double y = center.y + 0.4D + random.nextDouble() * 1.6D;
-                double outward = 0.04D + ringT * 0.08D;
-                double fall = -0.02D - random.nextDouble() * 0.045D;
+                double y = center.y + 0.2D + random.nextDouble() * 2.4D;
+                double outward = 0.03D + ringT * 0.07D;
+                double fall = -0.025D - random.nextDouble() * 0.055D;
                 smoke(level, x, y, z, cos * outward, fall, sin * outward);
-                if (random.nextFloat() < 0.28F) {
-                    particle(level, ParticleTypes.LARGE_SMOKE, x, y, z, cos * outward * 0.7D, fall * 0.85D, sin * outward * 0.7D);
+                if (random.nextFloat() < 0.42F) {
+                    particle(level, ParticleTypes.LARGE_SMOKE, x, y, z, cos * outward * 0.7D, fall * 0.9D, sin * outward * 0.7D);
                 }
-                if (random.nextFloat() < 0.18F) {
-                    particle(level, ParticleTypes.CAMPFIRE_COSY_SMOKE, x, y - 0.2D, z, cos * 0.02D, fall * 0.6D, sin * 0.02D);
+                if (random.nextFloat() < 0.32F) {
+                    particle(level, ParticleTypes.CAMPFIRE_COSY_SMOKE, x, y - 0.15D, z, cos * 0.02D, fall * 0.7D, sin * 0.02D);
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.createnucleararmaments.index;
 
 import com.createnucleararmaments.CNArmaments;
 import com.createnucleararmaments.CreateNuclearArmaments;
+import com.createnucleararmaments.munitions.NuclearTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -24,7 +25,7 @@ public final class CNACreativeTab {
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .icon(() -> CNAItems.ARMAMENT_URANIUM_BILLET != null
                     ? CNAItems.ARMAMENT_URANIUM_BILLET.asStack()
-                    : new ItemStack(Items.TNT))
+                    : CNAPlacedNuclearDevices.BLOCKS.get(NuclearTier.T1).asStack())
             .displayItems((parameters, output) -> {
                 Set<Item> displayedItems = new LinkedHashSet<>();
 

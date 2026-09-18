@@ -31,10 +31,6 @@ public final class CbcCompat {
      * Uses reflection so the main mod class never classloads CBC types when absent.
      */
     public static void registerMunitions() {
-        if (!CreateCompat.isLoaded()) {
-            CreateNuclearArmaments.LOGGER.info("Create not present; skipping nuclear munition registration");
-            return;
-        }
         if (!isAnyMunitionHostLoaded()) {
             CreateNuclearArmaments.LOGGER.info("CBC / CBC More Shells not present; skipping nuclear munition registration");
             return;

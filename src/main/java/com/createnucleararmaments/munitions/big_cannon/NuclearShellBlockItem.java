@@ -24,6 +24,6 @@ public class NuclearShellBlockItem extends FuzedProjectileBlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
-        NuclearMunitionTooltips.appendChargeShiftStats(stack, context, tooltip, flag, NuclearTier.fromEntity(entityType.get()));
+        NuclearMunitionTooltips.appendNuclearYieldNote(stack, tooltip, NuclearTier.fromEntity(entityType.get()));
     }
 }
