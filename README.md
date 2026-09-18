@@ -3,10 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-green.svg)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1-orange.svg)](https://neoforged.net/)
+[![Latest](https://img.shields.io/github/v/release/qwer854645/create-nuclear-armaments)](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
 
-Weapons-grade nuclear munitions for the Create ecosystem — shells, bombs, rockets, torpedoes, and placeable charges — with mushroom-cloud FX, blast fallout, and optional Create Nuclear radiation hooks.
+Weapons-grade nuclear munitions for the Create ecosystem — placeable charges plus optional CBC / CBCMS shells, bombs, rockets, and torpedoes — with mushroom-cloud FX, blast fallout, and optional Create Nuclear radiation hooks.
 
-面向 Create 生态的核武器扩展：核炮弹 / 核炸弹 / 核火箭 / 核鱼雷 / 可放置核装置，含蘑菇云特效、冲击沉降，以及可选的 Create Nuclear 辐射兼容。
+面向 Create 生态的核武器扩展：可放置核装置，以及可选的 CBC / CBCMS 核炮弹 / 核炸弹 / 核火箭 / 核鱼雷；含蘑菇云特效、冲击沉降，以及可选的 Create Nuclear 辐射兼容。
 
 > **AI involvement / AI 参与说明**  
 > Parts of this project were developed with assistance from AI coding tools (Cursor). Human authors review, test, and remain responsible for the released code.  
@@ -14,39 +15,47 @@ Weapons-grade nuclear munitions for the Create ecosystem — shells, bombs, rock
 
 ## Features / 特性
 
-- Tiered munitions **T1–T3** (shell, bomb, rocket, torpedo) and placeable nuclear charges  
-  分级弹药 **T1–T3**（炮弹、炸弹、火箭、鱼雷）与可放置核装置
-- Detonation FX: mushroom cloud, shock rim fracture, radiation / fallout terrain changes  
-  起爆表现：蘑菇云、边缘碎裂、辐射沉降地形改造
-- Chain ignition: TNT, CBC munition blocks, and placed charges can cascade  
-  连锁点燃：TNT、CBC 弹药方块、放置核弹可连环引爆
-- Soft dependencies: CBC / CBCMS / Create Nuclear content and recipes load only when those mods are present  
-  软依赖：仅在 CBC / CBCMS / Create Nuclear 存在时注册对应内容并启用配方
+- Placeable nuclear charges **T1–T3** (redstone fuse / TNT & blast-chain ignition)  
+  可放置核装置 **T1–T3**（红石引信 / TNT 与爆炸连锁点燃）
+- Optional CBC / CBCMS munitions **T1–T3**: shells, bombs, rockets, torpedoes  
+  可选 CBC / CBCMS 弹药 **T1–T3**：炮弹、炸弹、火箭、鱼雷
+- Detonation FX: rising mushroom column, shock skirt with falling smoke, edge fracture, fallout terrain  
+  起爆表现：上升烟柱、冲击烟圈与下坠烟幕、边缘碎裂、沉降地形改造
+- Create-style Shift tooltips (`ItemDescription` + yield stats)  
+  Create 风格 Shift 提示（`ItemDescription` + 核当量数据）
+- Soft content: CBC / CBCMS / Create Nuclear register only when those mods are present  
+  软内容：仅在 CBC / CBCMS / Create Nuclear 存在时注册对应物品与配方
 
 ## Dependencies / 依赖
 
 | Mod | Required? | Notes |
 |-----|-----------|--------|
 | Minecraft 1.21.1 + NeoForge | **Yes** | — |
-| [Create](https://modrinth.com/mod/create) 6.x | **Yes** | Registration via CreateRegistrate |
-| [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | Materials + radiation effects |
+| [Create](https://modrinth.com/mod/create) 6.x | **Yes** | Hard dependency; uses CreateRegistrate |
+| [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | Feedstock items + radiation hooks |
 | [Create Big Cannons](https://modrinth.com/mod/create-big-cannons) | Optional | Nuclear shells |
 | [CBC More Shells](https://modrinth.com/mod/cbc-more-shells) (Military Supplement) | Optional | Nuclear bombs / rockets / torpedoes |
 
-无 CBC / CBCMS 时不注册对应核弹药；无 Create Nuclear 时不注册核材料物品。
+With Create alone you still get placeable charges and detonations. Without CBC / CBCMS the cannon-family munitions are skipped; without Create Nuclear the uranium feedstock items are skipped.
+
+仅装 Create 时仍可使用放置核装置与爆炸效果。无 CBC / CBCMS 不注册火炮系核弹药；无 Create Nuclear 不注册核材料物品。
 
 ## Important notes / 注意事项
 
 1. CBC-family munitions need a proper **fuze** to detonate as designed.  
    CBC 系弹药需正确安装**引信**。
 2. Placeable charges: redstone uses a long fuse (~30s); TNT / blast chain uses a shorter fuse (~5s). Flint-and-steel will not ignite them.  
-   放置核装置：红石长引信；TNT/爆炸连锁为短引信；打火石无效。
+   放置核装置：红石长引信；TNT / 爆炸连锁为短引信；打火石无效。
 3. Bedrock-tier unbreakable blocks are not destroyed; the blast core can clear obsidian-tier blocks.  
    基岩等不可破坏方块保留；内核可清掉黑曜石级方块。
 4. High-yield blasts are heavy on performance and may exhaust the sound pool.  
    大当量爆炸可能卡顿并打满音效池。
-5. This is early **0.1.x** — expect balance and API changes. Prefer a test world.  
-   早期 **0.1.x** 版本，数值与内容可能大幅调整，建议测试世界。
+5. Early **0.1.x** — expect balance and API changes. Prefer a test world.  
+   早期 **0.1.x**，数值与内容可能大幅调整，建议测试世界。
+
+## Download / 下载
+
+GitHub Releases: [v0.1.2](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.2) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
 
 ## Building / 构建
 
@@ -56,10 +65,16 @@ gradlew.bat build
 
 Output jar: `build/libs/createnucleararmaments-<version>.jar`
 
-Dev client (with libs + Create runtime mods configured in `build.gradle`):
+Dev client (Create + optional jars from `libs` / `devRuntimeMods`):
 
 ```bat
 gradlew.bat runClient
+```
+
+Bare Create-only client (skip CBC / CBCMS / Create Nuclear jars):
+
+```bat
+gradlew.bat runClient -PbareClient
 ```
 
 ## License / 开源协议
