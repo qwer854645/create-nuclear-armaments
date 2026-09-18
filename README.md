@@ -55,7 +55,7 @@ With Create alone you still get placeable charges and detonations. Without CBC /
 
 ## Download / 下载
 
-GitHub Releases: [v0.1.2](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.2) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
+GitHub Releases: [v0.1.3](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.3) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
 
 ## Building / 构建
 
@@ -90,4 +90,4 @@ Third-party mods (Create, Create Nuclear, Create Big Cannons, CBC More Shells, e
 
 ---
 
-**Version:** 0.1.2 · **Loader:** NeoForge · **MC:** 1.21.1
+**Version:** 0.1.3 · **Loader:** NeoForge · **MC:** 1.21.1

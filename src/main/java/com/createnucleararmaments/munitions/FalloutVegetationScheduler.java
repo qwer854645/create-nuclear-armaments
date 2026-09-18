@@ -33,7 +33,8 @@ public final class FalloutVegetationScheduler {
     private static final int BLOCK_UPDATE_FLAGS = Block.UPDATE_CLIENTS;
     private static final int DEFAULT_COLUMNS_PER_TICK = 4096;
     private static final int STONE_FALLOUT_ROLL_RANGE = 1000;
-    private static final int STONE_LAVA_THRESHOLD = 8;
+    /** Chance for stone → lava inside the melt sphere (~0.1%). */
+    private static final int STONE_LAVA_THRESHOLD = 1;
     private static final int STONE_AIR_THRESHOLD = 38;
     /** Weights for enriched soul soil, soul soil, coarse dirt, dirt (left to right, increasing). */
     private static final int[] SOIL_REPLACEMENT_WEIGHTS = {1, 19, 39, 141};
