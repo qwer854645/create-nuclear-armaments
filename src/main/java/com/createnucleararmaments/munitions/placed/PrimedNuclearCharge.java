@@ -14,14 +14,15 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class PrimedNuclearCharge extends Entity {
-    public static final int FUSE_SECONDS = 45;
+    public static final int FUSE_SECONDS = 30;
     public static final int CRITICAL_FUSE_SECONDS = 10;
     public static final int FUSE_TICKS = FUSE_SECONDS * 20;
     public static final int CRITICAL_FUSE_TICKS = CRITICAL_FUSE_SECONDS * 20;
+    /** Fuse used when another nuclear blast chains into this charge (~5s). */
+    public static final int BLAST_CHAIN_FUSE_TICKS = 100;
 
     private static final EntityDataAccessor<Integer> DATA_FUSE = SynchedEntityData.defineId(PrimedNuclearCharge.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TIER = SynchedEntityData.defineId(PrimedNuclearCharge.class, EntityDataSerializers.INT);
@@ -32,9 +33,13 @@ public class PrimedNuclearCharge extends Entity {
     }
 
     public PrimedNuclearCharge(Level level, double x, double y, double z, NuclearTier tier) {
+        this(level, x, y, z, tier, FUSE_TICKS);
+    }
+
+    public PrimedNuclearCharge(Level level, double x, double y, double z, NuclearTier tier, int fuseTicks) {
         this(CNAPlacedNuclearDevices.PRIMED_NUCLEAR_CHARGE.get(), level);
         this.setPos(x, y, z);
-        this.setFuse(FUSE_TICKS);
+        this.setFuse(Math.max(1, fuseTicks));
         this.setTier(tier);
         double randomOffset = level.random.nextDouble() * (float) (Math.PI * 2D);
         this.setDeltaMovement(-Math.sin(randomOffset) * 0.02D, 0.2F, -Math.cos(randomOffset) * 0.02D);
@@ -75,7 +80,7 @@ public class PrimedNuclearCharge extends Entity {
     }
 
     public BlockState getBlockState() {
-        return Blocks.TNT.defaultBlockState();
+        return CNAPlacedNuclearDevices.BLOCKS.get(getTier()).getDefaultState();
     }
 
     public int getFuse() {

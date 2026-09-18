@@ -1,0 +1,22 @@
+{
+  "values": [
+    "#minecraft:dirt",
+    "#minecraft:animals_spawnable_on",
+    "#minecraft:sniffer_diggable_block",
+    "#minecraft:nylium",
+    "minecraft:grass_block",
+    "minecraft:dirt_path",
+    "minecraft:farmland",
+    "minecraft:mud",
+    "minecraft:muddy_mangrove_roots",
+    "minecraft:moss_block",
+    {
+      "id": "#c:dirt",
+      "required": false
+    },
+    {
+      "id": "#c:grasses",
+      "required": false
+    }
+  ]
+}

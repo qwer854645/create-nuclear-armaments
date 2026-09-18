@@ -12,7 +12,7 @@
     "minimum_charge_power":  5,
     "can_squib": false,
     "added_recoil":  3.5,
-    "base_fuze":  false,
+    "base_fuze": false,
     "entity_damaging_explosive_power":  40,
     "block_damaging_explosive_power":  24,
     "penetration":  1,

@@ -1,22 +1,22 @@
 package com.createnucleararmaments.munitions.placed;
 
+import com.createnucleararmaments.CNArmaments;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 
 public class PrimedNuclearChargeRenderer extends EntityRenderer<PrimedNuclearCharge> {
-    private static final float BLINK_PERIOD_TICKS = 10.0F;
-    private static final float CRITICAL_BLINK_PERIOD_TICKS = 5.0F;
-    private static final float MIN_ALPHA = 0.28F;
-    private static final float MAX_ALPHA = 0.92F;
+    private final BlockRenderDispatcher blockRenderer;
 
     public PrimedNuclearChargeRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.shadowRadius = 0.5F;
+        this.blockRenderer = context.getBlockRenderDispatcher();
     }
 
     @Override
@@ -28,39 +28,40 @@ public class PrimedNuclearChargeRenderer extends EntityRenderer<PrimedNuclearCha
             MultiBufferSource buffer,
             int packedLight
     ) {
-        float fuse = entity.getFuse() - partialTick;
-        boolean critical = fuse <= PrimedNuclearCharge.CRITICAL_FUSE_TICKS;
-        float red = 1.0F;
-        float green = critical ? 0.12F : 1.0F;
-        float blue = critical ? 0.12F : 1.0F;
-
-        float period = critical ? CRITICAL_BLINK_PERIOD_TICKS : BLINK_PERIOD_TICKS;
-        float phase = (entity.tickCount + partialTick) * (Mth.TWO_PI / period);
-        float pulse = 0.5F + 0.5F * Mth.sin(phase);
-        float alpha = Mth.lerp(pulse, MIN_ALPHA, MAX_ALPHA);
-
         poseStack.pushPose();
         poseStack.translate(-0.5F, 0.0F, -0.5F);
-        DebugRenderer.renderFilledBox(
+
+        int fuse = entity.getFuse() - (int) partialTick;
+        boolean flash = fuse / 5 % 2 == 0;
+        boolean critical = fuse <= PrimedNuclearCharge.CRITICAL_FUSE_TICKS;
+
+        this.blockRenderer.renderSingleBlock(
+                entity.getBlockState(),
                 poseStack,
                 buffer,
-                0.03D,
-                0.0D,
-                0.03D,
-                0.97D,
-                0.98D,
-                0.97D,
-                red,
-                green,
-                blue,
-                alpha
+                flash ? LightTexture.FULL_BRIGHT : packedLight,
+                OverlayTexture.NO_OVERLAY
         );
+
+        if (flash) {
+            int overlay = critical
+                    ? OverlayTexture.pack(1.0F, true)
+                    : OverlayTexture.pack(1.0F, false);
+            this.blockRenderer.renderSingleBlock(
+                    entity.getBlockState(),
+                    poseStack,
+                    buffer,
+                    LightTexture.FULL_BRIGHT,
+                    overlay
+            );
+        }
+
         poseStack.popPose();
         super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
     }
 
     @Override
     public ResourceLocation getTextureLocation(PrimedNuclearCharge entity) {
-        return ResourceLocation.withDefaultNamespace("textures/misc/white.png");
+        return CNArmaments.id("block/nuclear_charge");
     }
 }

@@ -1,11 +1,10 @@
 package com.createnucleararmaments.munitions;
 
+import com.createnucleararmaments.compat.CreateNuclearBridge;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.nuclearteam.createnuclear.CNEffects;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +20,14 @@ public final class RadiationZoneScheduler {
     private static final List<Zone> ZONES = new ArrayList<>();
 
     private RadiationZoneScheduler() {
+    }
+
+    public static void clearAll() {
+        ZONES.clear();
+    }
+
+    public static void clearLevel(ServerLevel level) {
+        ZONES.removeIf(zone -> zone.level == level);
     }
 
     public static void schedule(ServerLevel level, Vec3 center, NuclearTier tier) {
@@ -101,7 +108,7 @@ public final class RadiationZoneScheduler {
                 if (entity.position().distanceToSqr(center) > radiusSq) {
                     continue;
                 }
-                entity.addEffect(new MobEffectInstance(CNEffects.RADIATION, effectDuration, amplifier, false, true, true));
+                CreateNuclearBridge.applyFalloutEffects(entity, effectDuration, amplifier, false, true, true);
             }
         }
     }

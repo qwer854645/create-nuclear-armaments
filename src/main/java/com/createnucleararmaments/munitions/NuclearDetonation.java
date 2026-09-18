@@ -1,5 +1,6 @@
 package com.createnucleararmaments.munitions;
 
+import com.createnucleararmaments.compat.CreateNuclearBridge;
 import com.createnucleararmaments.network.CNANetwork;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -8,7 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -17,10 +17,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.nuclearteam.createnuclear.CNEffects;
 
 public final class NuclearDetonation {
+    /** Outer blast shell: stops at obsidian-tier resistance (1200). */
     private static final float MAX_BREAK_RESISTANCE = 1200.0F;
+    /**
+     * Inner core: only hardness &lt; 0 (bedrock / barrier / command blocks) is spared,
+     * so obsidian, ancient debris, reinforced deepslate, anvils, etc. are cleared.
+     */
+    private static final float CORE_RADIUS_FRACTION = 0.28F;
     private static final int BLOCK_UPDATE_FLAGS = Block.UPDATE_CLIENTS;
     private static final float FLUID_SOURCE_EXTRA_RADIUS = 15.0F;
 
@@ -37,6 +42,7 @@ public final class NuclearDetonation {
         float radius = tier.blastRadius();
 
         CNANetwork.sendMushroomCloud(serverLevel, center, tier);
+        MushroomCloudParticleScheduler.schedule(serverLevel, center, tier);
         playDetonationEffects(serverLevel, center, tier, pos, radius);
         clearSphere(serverLevel, center, radius);
         clearFluidSourcesInSphere(serverLevel, center, radius + FLUID_SOURCE_EXTRA_RADIUS);
@@ -44,6 +50,7 @@ public final class NuclearDetonation {
         EdgeFractureScheduler.schedule(serverLevel, center, tier, radius);
         applyInstantRadiation(serverLevel, center, tier, radius);
         RadiationZoneScheduler.schedule(serverLevel, center, tier);
+        FalloutVegetationScheduler.schedule(serverLevel, center, tier);
     }
 
     private static void playDetonationEffects(ServerLevel level, Vec3 center, NuclearTier tier, BlockPos pos, float radius) {
@@ -105,17 +112,24 @@ public final class NuclearDetonation {
         BlockPos core = BlockPos.containing(center);
         int bound = Mth.ceil(radius);
         double radiusSq = radius * radius;
+        double coreRadius = radius * CORE_RADIUS_FRACTION;
+        double coreRadiusSq = coreRadius * coreRadius;
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         for (int ox = -bound; ox <= bound; ox++) {
             for (int oy = -bound; oy <= bound; oy++) {
                 for (int oz = -bound; oz <= bound; oz++) {
-                    if (ox * ox + oy * oy + oz * oz > radiusSq) {
+                    double distSq = ox * ox + oy * oy + oz * oz;
+                    if (distSq > radiusSq) {
                         continue;
                     }
                     mutable.set(core.getX() + ox, core.getY() + oy, core.getZ() + oz);
                     BlockState state = level.getBlockState(mutable);
-                    if (canBreak(state, level, mutable)) {
+                    if (BlastChainIgnition.tryIgnite(level, mutable, state)) {
+                        continue;
+                    }
+                    boolean innerCore = distSq <= coreRadiusSq;
+                    if (canBreak(state, level, mutable, innerCore)) {
                         level.setBlock(mutable, Blocks.AIR.defaultBlockState(), BLOCK_UPDATE_FLAGS);
                     }
                 }
@@ -146,12 +160,16 @@ public final class NuclearDetonation {
         }
     }
 
-    private static boolean canBreak(BlockState state, ServerLevel level, BlockPos pos) {
+    private static boolean canBreak(BlockState state, ServerLevel level, BlockPos pos, boolean innerCore) {
         if (state.isAir()) {
             return false;
         }
+        // Bedrock, barriers, command blocks, etc.
         if (state.getDestroySpeed(level, pos) < 0.0F) {
             return false;
+        }
+        if (innerCore) {
+            return true;
         }
         return state.getBlock().getExplosionResistance() < MAX_BREAK_RESISTANCE;
     }
@@ -210,7 +228,7 @@ public final class NuclearDetonation {
                     ? 1.0D - distance / blastRadius * 0.35D
                     : 1.0D - (distance - blastRadius) / (radiationRadius - blastRadius) * 0.65D;
             int duration = (int) (tier.radiationDurationTicks() * falloff) + 120;
-            entity.addEffect(new MobEffectInstance(CNEffects.RADIATION, duration, tier.radiationAmplifier()));
+            CreateNuclearBridge.applyFalloutEffects(entity, duration, tier.radiationAmplifier());
         }
     }
 }

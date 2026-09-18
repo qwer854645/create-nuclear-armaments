@@ -12,7 +12,7 @@
     "minimum_charge_power":  6,
     "can_squib": false,
     "added_recoil":  3,
-    "base_fuze":  false,
+    "base_fuze": false,
     "explosive_power":  11,
     "penetration":  2.5,
     "lifetime":  120,

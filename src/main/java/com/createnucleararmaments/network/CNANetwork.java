@@ -8,7 +8,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import com.createnucleararmaments.client.CNAClientNetwork;
-import com.createnucleararmaments.munitions.MushroomCloudProfile;
 import com.createnucleararmaments.munitions.NuclearTier;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -35,7 +34,7 @@ public final class CNANetwork {
 
     public static void sendMushroomCloud(ServerLevel level, Vec3 center, NuclearTier tier) {
         double viewRadius = Math.max(192.0D, tier.blastRadius() * 5.0D);
-        long startTick = level.getGameTime() - MushroomCloudProfile.SYNC_LEAD_TICKS;
+        long startTick = level.getGameTime();
         MushroomCloudPayload payload = new MushroomCloudPayload(
                 center.x,
                 center.y,

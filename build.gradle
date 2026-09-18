@@ -11,9 +11,31 @@ base {
     archivesName = mod_id
 }
 
-layout.buildDirectory.set(file('C:/Users/Administrator.WIN-CARR4T5KVM6/AppData/Local/create-nuclear-armaments/build'))
-
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+def patchDevClientConfig = {
+    def configDir = file('run/config')
+    configDir.mkdirs()
+
+    def flywheel = file('run/config/flywheel-client.toml')
+    if (flywheel.exists()) {
+        def text = flywheel.getText('UTF-8')
+        // OFF is invalid in Flywheel 1.0.6; instancing avoids indirect GL hangs on Windows.
+        text = text.replace('backend = "DEFAULT"', 'backend = "flywheel:instancing"')
+        text = text.replace('backend = "OFF"', 'backend = "flywheel:instancing"')
+        text = text.replace('backend = "flywheel:indirect"', 'backend = "flywheel:instancing"')
+        text = text.replace('workerThreads = -1', 'workerThreads = 0')
+        text = text.replace('workerThreads = 1', 'workerThreads = 0')
+        text = text.replace('workerThreads = 2', 'workerThreads = 0')
+        flywheel.setText(text, 'UTF-8')
+    }
+}
+
+tasks.register('prepareDevClientConfig') {
+    group = 'neoforge'
+    description = 'Apply stable Flywheel settings for Windows dev client'
+    doLast(patchDevClientConfig)
+}
 
 neoForge {
     version = neo_version
@@ -30,17 +52,18 @@ neoForge {
 
         client {
             client()
-            gameDirectory = project.file('run')
+            gameDirectory = file('run')
+            taskBefore tasks.named('prepareDevClientConfig')
         }
 
         server {
             server()
-            gameDirectory = project.file('run/server')
+            gameDirectory = file('run/server')
         }
 
         data {
             data()
-            gameDirectory = project.file('run')
+            gameDirectory = file('run')
             programArguments.addAll '--mod', mod_id, '--all',
                     '--output', file('src/generated/resources/').absolutePath,
                     '--existing', file('src/main/resources/').absolutePath
@@ -96,7 +119,7 @@ dependencies {
 }
 
 tasks.register('copyDevMods', Copy) {
-    into layout.projectDirectory.dir('run/mods')
+    into file('run/mods')
     from('libs') {
         include '*.jar'
         exclude '*cbc_at*'
@@ -113,7 +136,6 @@ tasks.withType(JavaCompile).configureEach {
     options.fork = true
     options.incremental = false
     options.forkOptions.memoryMaximumSize = '2g'
-    options.forkOptions.jvmArgs += '-Djava.io.tmpdir=C:/Users/Administrator.WIN-CARR4T5KVM6/AppData/Local/Temp'
 }
 
 sourceSets.main.resources {

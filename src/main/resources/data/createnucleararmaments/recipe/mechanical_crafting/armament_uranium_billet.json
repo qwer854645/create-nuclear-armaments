@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "createnuclear"
+    }
+  ],
   "type": "create:mechanical_crafting",
   "accept_mirrored": true,
   "pattern": [
@@ -13,12 +19,8 @@
     "FPFPFPFPF"
   ],
   "key": {
-    "F": {
-      "id": "createnucleararmaments:fissile_precursor"
-    },
-    "P": {
-      "id": "createnucleararmaments:heu_compound"
-    }
+    "F": { "item": "createnucleararmaments:fissile_precursor" },
+    "P": { "item": "createnucleararmaments:heu_compound" }
   },
   "result": {
     "id": "createnucleararmaments:armament_uranium_billet",

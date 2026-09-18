@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#minecraft:logs",
+    "#minecraft:overworld_natural_logs",
+    "#minecraft:logs_that_burn",
+    {
+      "id": "#c:logs",
+      "required": false
+    },
+    {
+      "id": "#c:stripped_logs",
+      "required": false
+    }
+  ]
+}

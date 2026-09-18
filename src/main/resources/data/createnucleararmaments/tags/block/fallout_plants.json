@@ -1,0 +1,41 @@
+{
+  "values": [
+    "#minecraft:crops",
+    "#minecraft:flowers",
+    "#minecraft:saplings",
+    "#minecraft:replaceable_by_trees",
+    "minecraft:short_grass",
+    "minecraft:tall_grass",
+    "minecraft:fern",
+    "minecraft:large_fern",
+    "minecraft:vine",
+    "minecraft:glow_lichen",
+    "minecraft:moss_carpet",
+    "minecraft:sugar_cane",
+    "minecraft:bamboo",
+    "minecraft:cocoa",
+    "minecraft:sweet_berry_bush",
+    "minecraft:pink_petals",
+    "minecraft:pitcher_plant",
+    "minecraft:torchflower",
+    "minecraft:torchflower_crop",
+    "minecraft:pitcher_crop",
+    "minecraft:hanging_roots",
+    "minecraft:spore_blossom",
+    "minecraft:big_dripleaf",
+    "minecraft:small_dripleaf",
+    "minecraft:lily_pad",
+    "minecraft:seagrass",
+    "minecraft:tall_seagrass",
+    "minecraft:kelp",
+    "minecraft:kelp_plant",
+    {
+      "id": "#c:flowers",
+      "required": false
+    },
+    {
+      "id": "#c:crops",
+      "required": false
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 build/
 run/
 run-data/
+runs/
 out/
 .idea/
 *.iml
@@ -14,3 +15,7 @@ bin/
 *.log
 src/generated/
 libs/*.jar
+crash-reports/
+logs/
+**/hs_err_pid*.log
+**/replay_pid*.log

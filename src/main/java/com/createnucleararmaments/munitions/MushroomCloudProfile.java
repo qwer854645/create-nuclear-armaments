@@ -21,39 +21,38 @@ public record MushroomCloudProfile(
         int dissipateStartTick,
         int endTicks
 ) {
-    /** Client effect begins this many ticks before detonation so the shock ring meets the blast. */
-    public static final int SYNC_LEAD_TICKS = 6;
-    private static final float TIMING_SCALE = 0.86F;
+    private static final float TIMING_SCALE = 0.95F;
 
-    private static int faster(int ticks) {
-        return Math.max(6, Math.round(ticks * TIMING_SCALE));
+    private static int scaled(int ticks) {
+        return Math.max(12, Math.round(ticks * TIMING_SCALE));
     }
 
     public static MushroomCloudProfile forTier(NuclearTier tier) {
         int level = tier.tier();
         double yieldScale = Math.sqrt(tier.yieldKilotons());
 
-        double stemHeight = 12.0D + yieldScale * 3.0D;
-        double capRadius = 5.0D + yieldScale * 2.5D;
-        int stemRiseTicks = faster(80 + level * 20);
-        int capStartTick = (int) (stemRiseTicks * 0.22F);
-        int capExpandTicks = faster(100 + level * 28);
+        double stemHeight = 32.0D + yieldScale * 9.0D + tier.blastRadius() * 0.4D;
+        double capRadius = 14.0D + yieldScale * 4.8D + tier.blastRadius() * 0.2D;
+        int stemRiseTicks = scaled(90 + level * 22);
+        int capStartTick = (int) (stemRiseTicks * 0.35F);
+        int capExpandTicks = scaled(100 + level * 28);
         int rollStartTick = capStartTick + capExpandTicks / 4;
-        int rollExpandTicks = faster(110 + level * 32);
+        int rollExpandTicks = scaled(110 + level * 30);
         int dissipateStartTick = rollStartTick + rollExpandTicks;
-        int endTicks = dissipateStartTick + faster(100 + level * 30);
-        double shockRingMaxRadius = tier.radiationRadius() * 1.22D;
+        int endTicks = dissipateStartTick + scaled(120 + level * 35);
+        double shockRingMaxRadius = Math.max(tier.blastRadius() * 2.15D, tier.radiationRadius() * 1.05D);
+        int shockRingEndTicks = scaled(140 + level * 24);
 
         return new MushroomCloudProfile(
                 tier,
                 stemHeight,
-                2.0D + level * 0.35D,
-                1.1D + level * 0.2D,
+                4.5D + level * 1.1D,
+                2.4D + level * 0.55D,
                 capRadius,
-                2.5D + level * 0.7D,
+                5.0D + level * 1.4D,
                 shockRingMaxRadius,
-                endTicks,
-                faster(32),
+                shockRingEndTicks,
+                scaled(42),
                 stemRiseTicks,
                 capStartTick,
                 capExpandTicks,

@@ -1,0 +1,34 @@
+{
+    "type":  "create:sequenced_assembly",
+    "ingredient":  {
+                       "item":  "createnucleararmaments:nuclear_bomb_t2"
+                   },
+    "transitional_item":  {
+                              "id":  "createnucleararmaments:nuclear_bomb_t2"
+                          },
+    "loops":  8,
+    "sequence":  [
+                     {
+                         "type":  "create:deploying",
+                         "ingredients":  [
+                                             {
+                                                 "item":  "createnucleararmaments:nuclear_bomb_t2"
+                                             },
+                                             {
+                                                 "item":  "minecraft:redstone"
+                                             }
+                                         ],
+                         "results":  [
+                                         {
+                                             "id":  "createnucleararmaments:nuclear_bomb_t2"
+                                         }
+                                     ]
+                     }
+                 ],
+    "results":  [
+                    {
+                        "chance":  120,
+                        "id":  "createnucleararmaments:nuclear_charge_t2"
+                    }
+                ]
+}

@@ -19,6 +19,8 @@ public final class CNAClientEvents {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level != null) {
             ClientMushroomCloudManager.tick(minecraft.level);
+        } else {
+            ClientMushroomCloudManager.clear();
         }
     }
 
@@ -27,9 +29,12 @@ public final class CNAClientEvents {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
             return;
         }
+        if (ClientMushroomCloudManager.activeClouds().isEmpty()) {
+            return;
+        }
 
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.level == null || ClientMushroomCloudManager.activeClouds().isEmpty()) {
+        if (minecraft.level == null) {
             return;
         }
 
@@ -42,10 +47,17 @@ public final class CNAClientEvents {
 
         poseStack.pushPose();
         poseStack.translate(-camPos.x, -camPos.y, -camPos.z);
-        for (var cloud : ClientMushroomCloudManager.activeClouds()) {
-            MushroomCloudRenderer.render(poseStack, buffer, camera, minecraft.level, cloud, gameTime, partialTick);
+        try {
+            for (var cloud : ClientMushroomCloudManager.activeClouds()) {
+                try {
+                    MushroomCloudRenderer.render(poseStack, buffer, camera, cloud, gameTime, partialTick);
+                } catch (Throwable t) {
+                    CreateNuclearArmaments.LOGGER.warn("Skipped one mushroom cloud frame", t);
+                }
+            }
+            buffer.endBatch();
+        } finally {
+            poseStack.popPose();
         }
-        poseStack.popPose();
-        buffer.endBatch();
     }
 }

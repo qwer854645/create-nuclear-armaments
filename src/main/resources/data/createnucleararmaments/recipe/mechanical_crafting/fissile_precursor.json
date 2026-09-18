@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "createnuclear"
+    }
+  ],
   "type": "create:mechanical_crafting",
   "accept_mirrored": true,
   "pattern": [
@@ -11,18 +17,10 @@
     "HEHHEHH"
   ],
   "key": {
-    "H": {
-      "id": "createnucleararmaments:heu_compound"
-    },
-    "E": {
-      "id": "create:electron_tube"
-    },
-    "F": {
-      "id": "createnuclear:uranium_rod"
-    },
-    "P": {
-      "id": "create:sturdy_sheet"
-    }
+    "H": { "item": "createnucleararmaments:heu_compound" },
+    "E": { "item": "create:electron_tube" },
+    "F": { "item": "createnuclear:uranium_rod" },
+    "P": { "item": "create:sturdy_sheet" }
   },
   "result": {
     "id": "createnucleararmaments:fissile_precursor",

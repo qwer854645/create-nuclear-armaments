@@ -29,8 +29,8 @@ if "%DIRNAME%" == "" set DIRNAME=.
 set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%
 
-@rem Keep Gradle cache off the network project drive to avoid file-lock hangs.
-if not defined GRADLE_USER_HOME set GRADLE_USER_HOME=C:\Users\Administrator.WIN-CARR4T5KVM6\.gradle-local
+@rem Keep Gradle cache on the local M: drive.
+if not defined GRADLE_USER_HOME set GRADLE_USER_HOME=M:\modds\.gradle
 
 @rem Resolve any "." and ".." in APP_HOME to make it shorter.
 for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi

@@ -69,6 +69,7 @@ public final class CNAMunitions {
     ) {
         String id = kind.idFor(tier);
         ResourceLocation visualModel = ResourceLocation.parse(kind.visualModel());
+        ResourceLocation itemModel = ResourceLocation.parse(kind.itemModel());
         DeferredSupplier<BlockState> renderedState = new DeferredSupplier<>();
 
         EntityEntry<?> entity = switch (kind) {
@@ -86,6 +87,7 @@ public final class CNAMunitions {
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
                     .item((b, props) -> new NuclearShellBlockItem(b, props, entity::get))
+                    .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), itemModel))
                     .tag(CNATags.BIG_CANNON_PROJECTILES)
                     .build()
                     .register();
@@ -96,6 +98,7 @@ public final class CNAMunitions {
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
                     .item((b, props) -> new NuclearTorpedoBlockItem(b, props, entity::get))
+                    .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), itemModel))
                     .build()
                     .register();
             case BOMB -> CNArmaments.REGISTRATE
@@ -105,6 +108,7 @@ public final class CNAMunitions {
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
                     .item((b, props) -> new NuclearBombBlockItem(b, props, entity::get))
+                    .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), itemModel))
                     .build()
                     .register();
             case ROCKET -> CNArmaments.REGISTRATE
@@ -114,6 +118,7 @@ public final class CNAMunitions {
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
                     .item((rocketBlock, props) -> new NuclearRocketBlockItem((NuclearRocketBlock) rocketBlock, props, () -> (EntityType<? extends NuclearRocketProjectile>) entity.get()))
+                    .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), itemModel))
                     .build()
                     .register();
         };

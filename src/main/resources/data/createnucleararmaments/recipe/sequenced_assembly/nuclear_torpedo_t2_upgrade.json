@@ -1,34 +1,40 @@
 {
-  "type": "create:sequenced_assembly",
-  "ingredient": {
-    "id": "createnucleararmaments:nuclear_torpedo_t2"
-  },
-  "transitional_item": {
-    "id": "createnucleararmaments:nuclear_torpedo_t2"
-  },
-  "loops": 144,
-  "sequence": [
+  "neoforge:conditions": [
     {
-      "type": "create:deploying",
-      "ingredients": [
-        {
-          "id": "createnucleararmaments:nuclear_torpedo_t2"
-        },
-        {
-          "id": "createnucleararmaments:armament_uranium_billet"
-        }
-      ],
-      "results": [
-        {
-          "id": "createnucleararmaments:nuclear_torpedo_t2"
-        }
-      ]
+      "type": "neoforge:mod_loaded",
+      "modid": "createnuclear"
     }
   ],
-  "results": [
-    {
-      "chance": 120,
-      "id": "createnucleararmaments:nuclear_torpedo_t3"
-    }
-  ]
+  "type":  "create:sequenced_assembly",
+    "ingredient":  {
+                       "item":  "createnucleararmaments:nuclear_torpedo_t2"
+                   },
+    "transitional_item":  {
+                              "id":  "createnucleararmaments:nuclear_torpedo_t2"
+                          },
+    "loops":  144,
+    "sequence":  [
+                     {
+                         "type":  "create:deploying",
+                         "ingredients":  [
+                                             {
+                                                 "item":  "createnucleararmaments:nuclear_torpedo_t2"
+                                             },
+                                             {
+                                                 "item":  "createnucleararmaments:armament_uranium_billet"
+                                             }
+                                         ],
+                         "results":  [
+                                         {
+                                             "id":  "createnucleararmaments:nuclear_torpedo_t2"
+                                         }
+                                     ]
+                     }
+                 ],
+    "results":  [
+                    {
+                        "chance":  120,
+                        "id":  "createnucleararmaments:nuclear_torpedo_t3"
+                    }
+                ]
 }

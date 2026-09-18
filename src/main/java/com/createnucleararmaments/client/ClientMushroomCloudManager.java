@@ -7,23 +7,28 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class ClientMushroomCloudManager {
     private static final int MAX_CLOUDS = 3;
-    private static final List<MushroomCloudEffect> CLOUDS = new ArrayList<>();
+    private static final CopyOnWriteArrayList<MushroomCloudEffect> CLOUDS = new CopyOnWriteArrayList<>();
 
     private ClientMushroomCloudManager() {
     }
 
     public static void schedule(Vec3 center, NuclearTier tier, long startTick) {
-        if (CLOUDS.size() >= MAX_CLOUDS) {
+        for (MushroomCloudEffect cloud : CLOUDS) {
+            if (cloud.matches(center, tier, startTick)) {
+                return;
+            }
+        }
+
+        while (CLOUDS.size() >= MAX_CLOUDS) {
             CLOUDS.remove(0);
         }
         CLOUDS.add(new MushroomCloudEffect(center, MushroomCloudProfile.forTier(tier), startTick));
+        ClientNuclearAtmosphere.punch(ClientNuclearAtmosphere.NuclearAtmospherePunch.forTier(tier.tier()));
     }
 
     public static void tick(Level level) {
@@ -32,18 +37,25 @@ public final class ClientMushroomCloudManager {
         }
 
         long gameTime = level.getGameTime();
-        Iterator<MushroomCloudEffect> iterator = CLOUDS.iterator();
-        while (iterator.hasNext()) {
-            MushroomCloudEffect cloud = iterator.next();
+        for (MushroomCloudEffect cloud : CLOUDS) {
             if (cloud.isExpired(gameTime)) {
-                iterator.remove();
+                CLOUDS.remove(cloud);
                 continue;
             }
-            cloud.tickAccentParticles(clientLevel, gameTime);
+            try {
+                cloud.tickAccentParticles(clientLevel, gameTime);
+            } catch (Throwable t) {
+                // Accent particles must never take down the client.
+                CLOUDS.remove(cloud);
+            }
         }
     }
 
     public static List<MushroomCloudEffect> activeClouds() {
-        return Collections.unmodifiableList(CLOUDS);
+        return CLOUDS;
+    }
+
+    public static void clear() {
+        CLOUDS.clear();
     }
 }

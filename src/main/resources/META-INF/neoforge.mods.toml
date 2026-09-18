@@ -32,7 +32,7 @@ side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "createnuclear"
-type = "required"
+type = "optional"
 versionRange = "${createnuclear_version_range}"
 ordering = "AFTER"
 side = "BOTH"

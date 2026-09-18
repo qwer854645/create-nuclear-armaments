@@ -19,9 +19,6 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public final class CNAPlacedNuclearDevices {
-    private static final ResourceLocation TNT_BLOCK_MODEL = ResourceLocation.withDefaultNamespace("block/tnt");
-    private static final ResourceLocation TNT_ITEM_MODEL = ResourceLocation.withDefaultNamespace("item/tnt");
-
     public static EntityEntry<PrimedNuclearCharge> PRIMED_NUCLEAR_CHARGE;
     public static final Map<NuclearTier, BlockEntry<PlacedNuclearDeviceBlock>> BLOCKS = new EnumMap<>(NuclearTier.class);
 
@@ -46,14 +43,16 @@ public final class CNAPlacedNuclearDevices {
 
     private static BlockEntry<PlacedNuclearDeviceBlock> registerBlock(NuclearTier tier) {
         String id = "nuclear_charge_" + tier.suffix();
+        ResourceLocation blockModel = CNArmaments.id("block/nuclear_charge");
+        ResourceLocation itemModel = CNArmaments.id("item/nuclear_charge");
         return CNArmaments.REGISTRATE
                 .block(id, props -> new PlacedNuclearDeviceBlock(props, tier))
                 .properties(p -> BlockBehaviour.Properties.ofFullCopy(Blocks.TNT))
                 .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models().getExistingFile(TNT_BLOCK_MODEL)))
+                .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models().getExistingFile(blockModel)))
                 .lang(langName(tier))
                 .item((block, props) -> new NuclearChargeBlockItem(block, props, tier))
-                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), TNT_ITEM_MODEL))
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), itemModel))
                 .build()
                 .register();
     }

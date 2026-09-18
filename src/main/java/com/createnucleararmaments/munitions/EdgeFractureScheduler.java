@@ -1,5 +1,6 @@
 package com.createnucleararmaments.munitions;
 
+import com.createnucleararmaments.config.CNAConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -36,14 +37,20 @@ public final class EdgeFractureScheduler {
     private static final float BURIED_FRACTURE_CHANCE = 0.25F;
     private static final float MAX_BREAK_RESISTANCE = 1200.0F;
     private static final int BLOCK_UPDATE_FLAGS = Block.UPDATE_CLIENTS;
-    private static final int REAL_EXPLODES_PER_TICK = 40;
-    private static final int VISUAL_FRACTURES_PER_TICK = 90;
     private static final float VISUAL_CAP_MULTIPLIER = 4.0F;
     private static final int REAL_EXPLODE_SOUND_INTERVAL = 20;
 
     private static final List<Job> JOBS = new ArrayList<>();
 
     private EdgeFractureScheduler() {
+    }
+
+    public static void clearAll() {
+        JOBS.clear();
+    }
+
+    public static void clearLevel(ServerLevel level) {
+        JOBS.removeIf(job -> job.level == level);
     }
 
     public static void schedule(ServerLevel level, Vec3 center, NuclearTier tier, float blastRadius) {
@@ -216,7 +223,7 @@ public final class EdgeFractureScheduler {
         }
 
         private boolean advance() {
-            int budget = REAL_EXPLODES_PER_TICK;
+            int budget = realExplodesPerTick();
             while (budget-- > 0 && !realExplodes.isEmpty()) {
                 Vec3 pos = realExplodes.removeFirst();
                 level.explode(null, pos.x, pos.y, pos.z, explodePower, false, Level.ExplosionInteraction.TNT);
@@ -229,7 +236,7 @@ public final class EdgeFractureScheduler {
                 }
             }
 
-            budget = VISUAL_FRACTURES_PER_TICK;
+            budget = visualFracturesPerTick();
             while (budget-- > 0 && !visualFractures.isEmpty()) {
                 applyVisualFracture(visualFractures.removeFirst());
             }
@@ -260,6 +267,9 @@ public final class EdgeFractureScheduler {
 
         private void applyVisualFracture(BlockPos pos) {
             BlockState state = level.getBlockState(pos);
+            if (BlastChainIgnition.tryIgnite(level, pos, state)) {
+                return;
+            }
             if (!canBreak(state, level, pos)) {
                 return;
             }
@@ -285,5 +295,25 @@ public final class EdgeFractureScheduler {
         private void playFractureSound(double x, double y, double z, float volume, float pitch) {
             level.playSound(null, x, y, z, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, volume, pitch);
         }
+    }
+
+    private static int realExplodesPerTick() {
+        try {
+            if (CNAConfig.SERVER_SPEC.isLoaded()) {
+                return CNAConfig.SERVER.edgeRealExplodesPerTick.get();
+            }
+        } catch (Throwable ignored) {
+        }
+        return 16;
+    }
+
+    private static int visualFracturesPerTick() {
+        try {
+            if (CNAConfig.SERVER_SPEC.isLoaded()) {
+                return CNAConfig.SERVER.edgeVisualFracturesPerTick.get();
+            }
+        } catch (Throwable ignored) {
+        }
+        return 90;
     }
 }

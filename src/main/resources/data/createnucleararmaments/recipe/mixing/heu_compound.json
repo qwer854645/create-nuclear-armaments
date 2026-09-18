@@ -1,45 +1,29 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "createnuclear"
+    }
+  ],
   "type": "create:mixing",
+  "heat_requirement": "heated",
   "ingredients": [
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:enriched_yellowcake" },
+    { "item": "createnuclear:lead_ingot" },
+    { "item": "createnuclear:lead_ingot" },
+    { "item": "create:brass_ingot" },
+    { "item": "create:brass_ingot" },
     {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:enriched_yellowcake"
-    },
-    {
-      "id": "createnuclear:lead_ingot"
-    },
-    {
-      "id": "createnuclear:lead_ingot"
-    },
-    {
-      "id": "create:brass_ingot"
-    },
-    {
-      "id": "create:brass_ingot"
-    },
-    {
-      "fluid": "createnuclear:uranium",
-      "amount": 1000
+      "type": "neoforge:single",
+      "amount": 1000,
+      "fluid": "createnuclear:uranium"
     }
   ],
   "results": [
@@ -47,6 +31,5 @@
       "id": "createnucleararmaments:heu_compound",
       "count": 8
     }
-  ],
-  "heatRequirement": "heated"
+  ]
 }
