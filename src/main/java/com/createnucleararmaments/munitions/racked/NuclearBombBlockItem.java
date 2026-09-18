@@ -1,7 +1,7 @@
 package com.createnucleararmaments.munitions.racked;
 
 import com.cainiao1053.cbcmoreshells.munitions.racked_projectile.FuzedRackedProjectileBlockItem;
-import com.createnucleararmaments.munitions.NuclearMunitionTooltips;
+import com.createnucleararmaments.compat.cbc.CbcNuclearMunitionTooltips;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -23,6 +23,6 @@ public class NuclearBombBlockItem extends FuzedRackedProjectileBlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
-        NuclearMunitionTooltips.appendBombShiftStats(stack, context, tooltip, flag, entityType.get());
+        CbcNuclearMunitionTooltips.appendBombShiftStats(stack, context, tooltip, flag, entityType.get());
     }
 }

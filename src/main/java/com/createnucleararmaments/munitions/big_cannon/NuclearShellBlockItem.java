@@ -1,6 +1,7 @@
 package com.createnucleararmaments.munitions.big_cannon;
 
 import com.createnucleararmaments.munitions.NuclearMunitionTooltips;
+import com.createnucleararmaments.munitions.NuclearTier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -23,6 +24,6 @@ public class NuclearShellBlockItem extends FuzedProjectileBlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
-        NuclearMunitionTooltips.appendShellShiftStats(stack, context, tooltip, flag, entityType.get());
+        NuclearMunitionTooltips.appendChargeShiftStats(stack, context, tooltip, flag, NuclearTier.fromEntity(entityType.get()));
     }
 }

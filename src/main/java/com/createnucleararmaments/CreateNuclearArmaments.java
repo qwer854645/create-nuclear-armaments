@@ -1,10 +1,10 @@
 package com.createnucleararmaments;
 
 import com.createnucleararmaments.config.CNAConfig;
+import com.createnucleararmaments.compat.CbcCompat;
 import com.createnucleararmaments.index.CNAPlacedNuclearDevices;
 import com.createnucleararmaments.index.CNACreativeTab;
 import com.createnucleararmaments.index.CNAItems;
-import com.createnucleararmaments.index.CNAMunitions;
 import com.createnucleararmaments.index.CNAParticles;
 import com.createnucleararmaments.munitions.EdgeFractureScheduler;
 import com.createnucleararmaments.network.CNANetwork;
@@ -34,7 +34,7 @@ public class CreateNuclearArmaments {
         CNACreativeTab.TABS.register(modEventBus);
 
         CNAItems.register();
-        CNAMunitions.register();
+        CbcCompat.registerMunitions();
         CNAPlacedNuclearDevices.register();
         CNAParticles.register(modEventBus);
 

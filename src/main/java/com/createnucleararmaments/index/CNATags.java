@@ -5,8 +5,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import rbasamoyai.createbigcannons.CBCTags;
 
 public final class CNATags {
     public static final TagKey<EntityType<?>> PRECISE_MOTION = TagKey.create(
@@ -75,7 +75,10 @@ public final class CNATags {
     public static final TagKey<Block> C_ICES = common("ices");
     public static final TagKey<Block> C_SNOW_BLOCKS = common("snow_blocks");
 
-    public static final TagKey<net.minecraft.world.item.Item> BIG_CANNON_PROJECTILES = CBCTags.CBCItemTags.BIG_CANNON_PROJECTILES;
+    public static final TagKey<Item> BIG_CANNON_PROJECTILES = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("createbigcannons", "big_cannon_projectiles")
+    );
 
     private CNATags() {
     }

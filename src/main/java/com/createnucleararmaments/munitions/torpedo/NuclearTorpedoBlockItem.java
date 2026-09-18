@@ -1,7 +1,7 @@
 package com.createnucleararmaments.munitions.torpedo;
 
 import com.cainiao1053.cbcmoreshells.munitions.big_cannon.FuzedTorpedoProjectileBlockItem;
-import com.createnucleararmaments.munitions.NuclearMunitionTooltips;
+import com.createnucleararmaments.compat.cbc.CbcNuclearMunitionTooltips;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -23,6 +23,6 @@ public class NuclearTorpedoBlockItem extends FuzedTorpedoProjectileBlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
-        NuclearMunitionTooltips.appendTorpedoShiftStats(stack, context, tooltip, flag, entityType.get());
+        CbcNuclearMunitionTooltips.appendTorpedoShiftStats(stack, context, tooltip, flag, entityType.get());
     }
 }

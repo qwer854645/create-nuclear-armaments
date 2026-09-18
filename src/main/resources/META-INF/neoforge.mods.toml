@@ -25,7 +25,7 @@ side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "create"
-type = "required"
+type = "optional"
 versionRange = "${create_version_range}"
 ordering = "AFTER"
 side = "BOTH"
@@ -39,7 +39,7 @@ side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "createbigcannons"
-type = "required"
+type = "optional"
 versionRange = "${createbigcannons_version_range}"
 ordering = "AFTER"
 side = "BOTH"

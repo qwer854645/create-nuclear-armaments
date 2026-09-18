@@ -48,6 +48,9 @@ public final class CNAMunitions {
 
     public static void register() {
         for (MunitionKind kind : MunitionKind.values()) {
+            if (!isKindAvailable(kind)) {
+                continue;
+            }
             Map<NuclearTier, BlockEntry<?>> blocks = new EnumMap<>(NuclearTier.class);
             Map<NuclearTier, EntityEntry<?>> entities = new EnumMap<>(NuclearTier.class);
             BLOCKS.put(kind, blocks);
@@ -57,7 +60,16 @@ public final class CNAMunitions {
                 registerPair(kind, tier, blocks, entities);
             }
         }
-        CNABlockEntities.register(ALL_MUNITION_BLOCKS);
+        if (!ALL_MUNITION_BLOCKS.isEmpty()) {
+            CNABlockEntities.register(ALL_MUNITION_BLOCKS);
+        }
+    }
+
+    private static boolean isKindAvailable(MunitionKind kind) {
+        return switch (kind) {
+            case SHELL -> com.createnucleararmaments.compat.CbcCompat.isCbcLoaded();
+            case TORPEDO, BOMB, ROCKET -> com.createnucleararmaments.compat.CbcCompat.isCbcmsLoaded();
+        };
     }
 
     @SuppressWarnings("unchecked")
