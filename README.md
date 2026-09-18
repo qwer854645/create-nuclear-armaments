@@ -75,4 +75,4 @@ Third-party mods (Create, Create Nuclear, Create Big Cannons, CBC More Shells, e
 
 ---
 
-**Version:** 0.1.0 · **Loader:** NeoForge · **MC:** 1.21.1
+**Version:** 0.1.2 · **Loader:** NeoForge · **MC:** 1.21.1
