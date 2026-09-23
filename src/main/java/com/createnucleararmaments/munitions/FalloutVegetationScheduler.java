@@ -33,9 +33,8 @@ public final class FalloutVegetationScheduler {
     private static final int BLOCK_UPDATE_FLAGS = Block.UPDATE_CLIENTS;
     private static final int DEFAULT_COLUMNS_PER_TICK = 4096;
     private static final int STONE_FALLOUT_ROLL_RANGE = 1000;
-    /** Chance for stone → lava inside the melt sphere (~0.1%). */
-    private static final int STONE_LAVA_THRESHOLD = 1;
-    private static final int STONE_AIR_THRESHOLD = 38;
+    /** Air chance among non-lava stone rolls (~3.7%). */
+    private static final int STONE_AIR_THRESHOLD = 37;
     /** Weights for enriched soul soil, soul soil, coarse dirt, dirt (left to right, increasing). */
     private static final int[] SOIL_REPLACEMENT_WEIGHTS = {1, 19, 39, 141};
     /** Weights for dead bush, air (left to right, increasing). */
@@ -223,10 +222,11 @@ public final class FalloutVegetationScheduler {
      * @return replacement state, or {@code null} to leave the block unchanged
      */
     private static BlockState rollFalloutStoneReplacement(RandomSource random) {
-        int roll = random.nextInt(STONE_FALLOUT_ROLL_RANGE);
-        if (roll < STONE_LAVA_THRESHOLD) {
+        double lavaChance = CNAConfig.SERVER.falloutStoneLavaChance.get();
+        if (lavaChance > 0.0D && random.nextDouble() < lavaChance) {
             return Blocks.LAVA.defaultBlockState();
         }
+        int roll = random.nextInt(STONE_FALLOUT_ROLL_RANGE);
         if (roll < STONE_AIR_THRESHOLD) {
             return Blocks.AIR.defaultBlockState();
         }

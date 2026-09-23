@@ -4,8 +4,6 @@
   "tier.createnucleararmaments.t2": "战役级",
   "tier.createnucleararmaments.t3": "战略级",
   "item.createnucleararmaments.heu_compound": "高浓铀化合物",
-  "item.createnucleararmaments.fissile_precursor": "裂变芯坯",
-  "item.createnucleararmaments.armament_uranium_billet": "武备铀坯",
   "block.createnucleararmaments.nuclear_shell_t1": "战术核 HE 炮弹",
   "block.createnucleararmaments.nuclear_shell_t2": "战役核 HE 炮弹",
   "block.createnucleararmaments.nuclear_shell_t3": "战略核 HE 炮弹",
@@ -80,5 +78,5 @@
   "item.createnucleararmaments.nuclear_charge_t3.tooltip.behaviour1": "开始 _30 秒_ 引信并原地引爆。_TNT_ / 爆炸连锁使用更短引信。打火石无法点燃。",
   "item.createnucleararmaments.nuclear_charge_t3.tooltip.nuclear": "核当量 _%s 千吨_。爆坑 _%s 格_，辐射区 _%s 格_，残留辐射 _%s 秒_。",
   "createnucleararmaments.ponder.nuclear_fill.header": "核武装填",
-  "createnucleararmaments.ponder.nuclear_fill.text": "在序列装配线上向基础弹药逐步部署武备铀坯。更高等级需要更多部署循环。"
+  "createnucleararmaments.ponder.nuclear_fill.text": "在序列装配线上对基础弹药完成高浓铀装填：部署化合物、加压、灌注铀液、铅屏蔽、坚固板与电子管封装。更高等级需要更多循环。"
 }

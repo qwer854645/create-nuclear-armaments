@@ -1,49 +1,95 @@
 {
   "neoforge:conditions": [
-    
-    
     {
       "type": "neoforge:mod_loaded",
       "modid": "create"
     },
-{
-      "type": "neoforge:mod_loaded",
-      "modid": "cbcmoreshells"
-    },{
+    {
       "type": "neoforge:mod_loaded",
       "modid": "createnuclear"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "cbcmoreshells"
     }
   ],
-  "type":  "create:sequenced_assembly",
-    "ingredient":  {
-                       "item":  "cbcmoreshells:he_bomb"
-                   },
-    "transitional_item":  {
-                              "id":  "cbcmoreshells:he_bomb"
-                          },
-    "loops":  48,
-    "sequence":  [
-                     {
-                         "type":  "create:deploying",
-                         "ingredients":  [
-                                             {
-                                                 "item":  "cbcmoreshells:he_bomb"
-                                             },
-                                             {
-                                                 "item":  "createnucleararmaments:armament_uranium_billet"
-                                             }
-                                         ],
-                         "results":  [
-                                         {
-                                             "id":  "cbcmoreshells:he_bomb"
-                                         }
-                                     ]
-                     }
-                 ],
-    "results":  [
-                    {
-                        "chance":  120,
-                        "id":  "createnucleararmaments:nuclear_bomb_t2"
-                    }
-                ]
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "cbcmoreshells:he_bomb" },
+  "transitional_item": { "id": "cbcmoreshells:he_bomb" },
+  "loops": 12,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:he_bomb" } ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        {
+          "type": "neoforge:single",
+          "amount": 250,
+          "fluid": "createnuclear:uranium"
+        }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "createnuclear:lead_ingot" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:he_bomb" } ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create:electron_tube" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:he_bomb" } ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_bomb_t2"
+    }
+  ]
 }

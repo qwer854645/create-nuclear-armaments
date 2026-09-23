@@ -5,6 +5,7 @@ run-data/
 runs/
 out/
 .idea/
+.vscode/
 *.iml
 *.ipr
 *.iws
@@ -19,3 +20,9 @@ crash-reports/
 logs/
 **/hs_err_pid*.log
 **/replay_pid*.log
+ae2-extract/
+ae2-ponder/
+ae2.zip
+tmp_*/
+rbasamoyai/
+build-log.txt

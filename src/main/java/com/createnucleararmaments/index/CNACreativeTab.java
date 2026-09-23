@@ -23,8 +23,8 @@ public final class CNACreativeTab {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = TABS.register("main", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.createnucleararmaments"))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .icon(() -> CNAItems.ARMAMENT_URANIUM_BILLET != null
-                    ? CNAItems.ARMAMENT_URANIUM_BILLET.asStack()
+            .icon(() -> CNAItems.HEU_COMPOUND != null
+                    ? CNAItems.HEU_COMPOUND.asStack()
                     : CNAPlacedNuclearDevices.BLOCKS.get(NuclearTier.T1).asStack())
             .displayItems((parameters, output) -> {
                 Set<Item> displayedItems = new LinkedHashSet<>();

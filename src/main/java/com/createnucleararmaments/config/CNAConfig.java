@@ -23,6 +23,7 @@ public final class CNAConfig {
         public final ModConfigSpec.IntValue falloutColumnsPerTick;
         public final ModConfigSpec.IntValue edgeRealExplodesPerTick;
         public final ModConfigSpec.IntValue edgeVisualFracturesPerTick;
+        public final ModConfigSpec.DoubleValue falloutStoneLavaChance;
 
         private Server(ModConfigSpec.Builder builder) {
             builder.push("tiers");
@@ -42,6 +43,13 @@ public final class CNAConfig {
             edgeVisualFracturesPerTick = builder
                     .comment("Max cheap visual rim breaks per tick for edge fracture.")
                     .defineInRange("edgeVisualFracturesPerTick", 90, 0, 256);
+            builder.pop();
+
+            builder.comment("Post-blast terrain fallout.")
+                    .push("fallout");
+            falloutStoneLavaChance = builder
+                    .comment("Chance that stone inside the melt sphere becomes lava (0–1). Previous hardcoded rate was ~0.001.")
+                    .defineInRange("stoneLavaChance", 0.0005D, 0.0D, 1.0D);
             builder.pop();
         }
 

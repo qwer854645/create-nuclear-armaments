@@ -94,7 +94,7 @@ public final class CNAMunitions {
         BlockEntry<?> block = switch (kind) {
             case SHELL -> CNArmaments.REGISTRATE
                     .block(id, props -> new NuclearShellBlock(props, () -> (EntityType<? extends NuclearShellProjectile>) entity.get()))
-                    .properties(p -> p.mapColor(MapColor.METAL).strength(0.2F).noCollission())
+                    .properties(p -> p.mapColor(MapColor.METAL).strength(2.0F, 3.0F))
                     .tag(BlockTags.MINEABLE_WITH_PICKAXE)
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
@@ -105,7 +105,7 @@ public final class CNAMunitions {
                     .register();
             case TORPEDO -> CNArmaments.REGISTRATE
                     .block(id, props -> new NuclearTorpedoBlock(props, () -> (EntityType<? extends NuclearTorpedoProjectile>) entity.get()))
-                    .properties(p -> p.mapColor(MapColor.METAL).strength(0.2F).noCollission())
+                    .properties(p -> p.mapColor(MapColor.METAL).strength(2.0F, 3.0F))
                     .tag(BlockTags.MINEABLE_WITH_PICKAXE)
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
@@ -115,7 +115,7 @@ public final class CNAMunitions {
                     .register();
             case BOMB -> CNArmaments.REGISTRATE
                     .block(id, props -> new NuclearBombBlock(props, () -> (EntityType<? extends NuclearBombProjectile>) entity.get()))
-                    .properties(p -> p.mapColor(MapColor.METAL).strength(0.2F).noCollission())
+                    .properties(p -> p.mapColor(MapColor.METAL).strength(2.0F, 3.0F))
                     .tag(BlockTags.MINEABLE_WITH_PICKAXE)
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))
@@ -125,7 +125,7 @@ public final class CNAMunitions {
                     .register();
             case ROCKET -> CNArmaments.REGISTRATE
                     .block(id, props -> new NuclearRocketBlock(props, () -> (EntityType<? extends NuclearRocketProjectile>) entity.get()))
-                    .properties(p -> p.mapColor(MapColor.METAL).strength(0.2F).noCollission())
+                    .properties(p -> p.mapColor(MapColor.METAL).strength(2.0F, 3.0F))
                     .tag(BlockTags.MINEABLE_WITH_PICKAXE)
                     .blockstate((ctx, prov) -> prov.directionalBlock(ctx.get(), prov.models().getExistingFile(visualModel)))
                     .lang(langName(kind, tier))

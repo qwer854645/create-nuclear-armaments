@@ -1,5 +1,6 @@
 package com.createnucleararmaments.munitions;
 
+import com.createnucleararmaments.compat.CreateNewAgeBridge;
 import com.createnucleararmaments.compat.CreateNuclearBridge;
 import com.createnucleararmaments.network.CNANetwork;
 import net.minecraft.core.BlockPos;
@@ -218,6 +219,7 @@ public final class NuclearDetonation {
 
     private static void applyInstantRadiation(ServerLevel level, Vec3 center, NuclearTier tier, float blastRadius) {
         float radiationRadius = tier.radiationRadius();
+        CreateNewAgeBridge.burstRadiationField(level, BlockPos.containing(center), Math.max(1, (int) radiationRadius));
         AABB area = new AABB(center, center).inflate(radiationRadius);
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area)) {
             double distance = entity.position().distanceTo(center);

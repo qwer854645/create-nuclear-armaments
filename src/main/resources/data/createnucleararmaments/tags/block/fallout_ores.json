@@ -8,8 +8,8 @@
     "#minecraft:lapis_ores",
     "#minecraft:diamond_ores",
     "#minecraft:emerald_ores",
-    "#minecraft:nether_gold_ores",
-    "#minecraft:nether_quartz_ores",
+    "minecraft:nether_gold_ore",
+    "minecraft:nether_quartz_ore",
     "minecraft:ancient_debris",
     {
       "id": "#c:ores",

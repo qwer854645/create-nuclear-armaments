@@ -107,26 +107,64 @@ dependencies {
     compileOnly files('libs/createbigcannons-5.11.5+mc.1.21.1.jar')
     compileOnly files('libs/CBC-Military-Supplement-1.21.1-2.1.0.jar')
     compileOnly files('libs/createnuclear-1.3.2-beta.3-neoforge.jar')
+    compileOnly files('libs/create-new-age-1.2.0+neoforge-mc1.21.1.jar')
 
     devRuntimeMods("com.simibubi.create:create-${minecraft_version}:${create_version}") {
         transitive = false
     }
-    devRuntimeMods("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
-    devRuntimeMods("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+    devRuntimeMods("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}") {
+        transitive = false
+    }
+    devRuntimeMods("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}") {
+        transitive = false
+    }
     devRuntimeMods("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}+mc.${minecraft_version}-neoforge") {
+        transitive = false
+    }
+    // Dev-client only (copied into run/mods). Not a published dependency.
+    devRuntimeMods("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}") {
         transitive = false
     }
 }
 
-tasks.register('copyDevMods', Copy) {
+tasks.register('copyDevMods') {
     onlyIf { !project.hasProperty('bareClient') }
-    into file('run/mods')
-    from('libs') {
-        include '*.jar'
-        exclude '*cbc_at*'
+    doLast {
+        def modsDir = file('run/mods')
+        modsDir.mkdirs()
+        copy {
+            into modsDir
+            from('libs') {
+                include '*.jar'
+                exclude '*cbc_at*'
+                exclude 'create-1.21.1-6.0.10.jar'
+            }
+            from configurations.devRuntimeMods
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }
+        // NeoForge only accepts real mod jars in run/mods; drop Maven library jars.
+        def modNameOk = { String name ->
+            def n = name.toLowerCase()
+            return n.startsWith('create-') ||
+                    n.startsWith('createbigcannons') ||
+                    n.startsWith('cbc-') ||
+                    n.startsWith('createnuclear') ||
+                    n.startsWith('ponder-') ||
+                    n.startsWith('flywheel-') ||
+                    n.startsWith('ritchiesprojectilelib') ||
+                    n.startsWith('jei-') ||
+                    n.startsWith('esl-')
+        }
+        modsDir.listFiles()?.each { File f ->
+            if (!f.name.toLowerCase().endsWith('.jar')) {
+                return
+            }
+            if (!modNameOk(f.name)) {
+                logger.lifecycle("Removing non-mod jar from run/mods: ${f.name}")
+                f.delete()
+            }
+        }
     }
-    from configurations.devRuntimeMods
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.register('prepareBareClientMods') {
@@ -136,21 +174,43 @@ tasks.register('prepareBareClientMods') {
     doLast {
         def modsDir = file('run/mods')
         modsDir.mkdirs()
-        def keepPrefixes = ['create-', 'ponder-', 'flywheel-', 'ritchiesprojectilelib']
+        def keepPrefixes = ['create-', 'ponder-', 'flywheel-', 'ritchiesprojectilelib', 'jei-']
         modsDir.listFiles()?.each { File f ->
             if (!f.name.toLowerCase().endsWith('.jar')) {
                 return
             }
             def keep = keepPrefixes.any { f.name.toLowerCase().startsWith(it) }
+            // Drop optional Addons on bare client (New Age / CBC / CN / CBCMS)
+            if (f.name.toLowerCase().startsWith('create-new-age') ||
+                    f.name.toLowerCase().startsWith('createbigcannons') ||
+                    f.name.toLowerCase().startsWith('cbc-') ||
+                    f.name.toLowerCase().startsWith('createnuclear')) {
+                keep = false
+            }
             if (!keep) {
                 f.delete()
             }
         }
-        // Ensure Create runtime jars are present even if copyDevMods was skipped
         copy {
             into modsDir
             from configurations.devRuntimeMods
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }
+        modsDir.listFiles()?.each { File f ->
+            if (!f.name.toLowerCase().endsWith('.jar')) {
+                return
+            }
+            def n = f.name.toLowerCase()
+            def ok = n.startsWith('create-') || n.startsWith('ponder-') ||
+                    n.startsWith('flywheel-') || n.startsWith('ritchiesprojectilelib') ||
+                    n.startsWith('jei-')
+            if (n.startsWith('create-new-age') || n.startsWith('createbigcannons') ||
+                    n.startsWith('cbc-') || n.startsWith('createnuclear')) {
+                ok = false
+            }
+            if (!ok) {
+                f.delete()
+            }
         }
     }
 }
@@ -189,6 +249,7 @@ processResources {
             createnuclear_version_range    : createnuclear_version_range,
             createbigcannons_version_range : createbigcannons_version_range,
             cbcmoreshells_version_range    : cbcmoreshells_version_range,
+            create_new_age_version_range   : create_new_age_version_range,
     ]
     inputs.properties replaceProperties
 

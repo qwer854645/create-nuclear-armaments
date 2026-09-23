@@ -5,89 +5,86 @@
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1-orange.svg)](https://neoforged.net/)
 [![Latest](https://img.shields.io/github/v/release/qwer854645/create-nuclear-armaments)](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
 
-Weapons-grade nuclear munitions for the Create ecosystem — placeable charges plus optional CBC / CBCMS shells, bombs, rockets, and torpedoes — with mushroom-cloud FX, blast fallout, and optional Create Nuclear radiation hooks.
+Nuclear munitions for the Create ecosystem on **Minecraft 1.21.1 / NeoForge**.
 
-面向 Create 生态的核武器扩展：可放置核装置，以及可选的 CBC / CBCMS 核炮弹 / 核炸弹 / 核火箭 / 核鱼雷；含蘑菇云特效、冲击沉降，以及可选的 Create Nuclear 辐射兼容。
+Craft placeable nuclear charges and optional big-cannon munitions (shells, bombs, rockets, torpedoes). Detonations produce a mushroom-cloud presentation, cratering, edge fracture, terrain fallout, and optional radiation from **Create Nuclear** and/or **Create: New Age**.
 
-> **AI involvement / AI 参与说明**  
-> Parts of this project were developed with assistance from AI coding tools (Cursor). Human authors review, test, and remain responsible for the released code.  
-> 本项目部分内容由 AI 编程工具（Cursor）辅助完成；由人工审核、测试，并对发布代码负责。
+> **AI involvement**  
+> Parts of this project were developed with assistance from AI coding tools (Cursor). Human authors review, test, and remain responsible for the released code.
 
-## Features / 特性
+## Features
 
-- Placeable nuclear charges **T1–T3** (redstone fuse / TNT & blast-chain ignition)  
-  可放置核装置 **T1–T3**（红石引信 / TNT 与爆炸连锁点燃）
-- Optional CBC / CBCMS munitions **T1–T3**: shells, bombs, rockets, torpedoes  
-  可选 CBC / CBCMS 弹药 **T1–T3**：炮弹、炸弹、火箭、鱼雷
-- Detonation FX: rising mushroom column, shock skirt with falling smoke, edge fracture, fallout terrain  
-  起爆表现：上升烟柱、冲击烟圈与下坠烟幕、边缘碎裂、沉降地形改造
-- Create-style Shift tooltips (`ItemDescription` + yield stats)  
-  Create 风格 Shift 提示（`ItemDescription` + 核当量数据）
-- Soft content: CBC / CBCMS / Create Nuclear register only when those mods are present  
-  软内容：仅在 CBC / CBCMS / Create Nuclear 存在时注册对应物品与配方
+- **Placeable charges T1–T3** — redstone long fuse (~30s) or TNT / blast-chain short fuse (~5s); flint-and-steel does nothing
+- **Optional CBC / CBCMS munitions T1–T3** — shells (Create Big Cannons), bombs / rockets / torpedoes (CBC Military Supplement)
+- **Detonation FX** — rising mushroom column, shock skirt, edge fracture, fallout terrain conversion
+- **Radiation soft hooks**
+  - Create Nuclear: radiation effect when that mod is present
+  - Create: New Age: `radiation_poisoning` plus a New Age radiation pulse (respects hazmat / shielding)
+- **Crafting paths**
+  - Create Nuclear feedstock → HEU compound → sequenced munition assembly
+  - Alternate Create: New Age recipes (thorium, nuclear fuel, overcharged metals, circuits) when that mod is installed
+- **Create-style Shift tooltips** with yield / crater / radiation stats
+- **Configurable fallout lava** — `fallout.stoneLavaChance` in the server config (default `0.0005`)
 
-## Dependencies / 依赖
+## Dependencies
 
-| Mod | Required? | Notes |
-|-----|-----------|--------|
-| Minecraft 1.21.1 + NeoForge | **Yes** | — |
-| [Create](https://modrinth.com/mod/create) 6.x | **Yes** | Hard dependency; uses CreateRegistrate |
-| [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | Feedstock items + radiation hooks |
+| Mod | Required? | Role |
+|-----|-----------|------|
+| Minecraft 1.21.1 + NeoForge | **Yes** | Runtime |
+| [Create](https://modrinth.com/mod/create) 6.x | **Yes** | Hard dependency (CreateRegistrate, recipes, tooltips) |
+| [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | HEU mixing ingredients + radiation effect |
 | [Create Big Cannons](https://modrinth.com/mod/create-big-cannons) | Optional | Nuclear shells |
-| [CBC More Shells](https://modrinth.com/mod/cbc-more-shells) (Military Supplement) | Optional | Nuclear bombs / rockets / torpedoes |
+| [CBC More Shells](https://modrinth.com/mod/cbc-more-shells) (Military Supplement) | Optional | Nuclear bombs, rockets, torpedoes |
+| [Create: New Age](https://modrinth.com/mod/create-new-age) | Optional | Alternate HEU / munition recipes + radiation poisoning (needs **ESL** when installed) |
 
-With Create alone you still get placeable charges and detonations. Without CBC / CBCMS the cannon-family munitions are skipped; without Create Nuclear the uranium feedstock items are skipped.
+**Soft loading:** With Create alone you still get placeable charges and full blast FX. CBC / CBCMS munitions register only when those mods are present. HEU registers if **either** Create Nuclear or Create: New Age is present.
 
-仅装 Create 时仍可使用放置核装置与爆炸效果。无 CBC / CBCMS 不注册火炮系核弹药；无 Create Nuclear 不注册核材料物品。
+## Gameplay notes
 
-## Important notes / 注意事项
+1. CBC-family projectiles need a proper **fuze** to detonate as intended.
+2. Bedrock-tier unbreakable blocks survive; the blast core can clear obsidian-tier blocks.
+3. Large yields are expensive — expect lag and a busy sound pool on high tiers.
+4. Early **0.1.x** — balance and APIs may change. Prefer a test world.
 
-1. CBC-family munitions need a proper **fuze** to detonate as designed.  
-   CBC 系弹药需正确安装**引信**。
-2. Placeable charges: redstone uses a long fuse (~30s); TNT / blast chain uses a shorter fuse (~5s). Flint-and-steel will not ignite them.  
-   放置核装置：红石长引信；TNT / 爆炸连锁为短引信；打火石无效。
-3. Bedrock-tier unbreakable blocks are not destroyed; the blast core can clear obsidian-tier blocks.  
-   基岩等不可破坏方块保留；内核可清掉黑曜石级方块。
-4. High-yield blasts are heavy on performance and may exhaust the sound pool.  
-   大当量爆炸可能卡顿并打满音效池。
-5. Early **0.1.x** — expect balance and API changes. Prefer a test world.  
-   早期 **0.1.x**，数值与内容可能大幅调整，建议测试世界。
+## Download
 
-## Download / 下载
+GitHub Releases: [v0.1.4](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.4) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
 
-GitHub Releases: [v0.1.3](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.3) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
-
-## Building / 构建
+## Building
 
 ```bat
 gradlew.bat build
 ```
 
-Output jar: `build/libs/createnucleararmaments-<version>.jar`
+Output: `build/libs/createnucleararmaments-<version>.jar`
 
-Dev client (Create + optional jars from `libs` / `devRuntimeMods`):
+Dev client (copies Create stack + optional jars from `libs` / `devRuntimeMods` into `run/mods`):
 
 ```bat
 gradlew.bat runClient
 ```
 
-Bare Create-only client (skip CBC / CBCMS / Create Nuclear jars):
+Create-only bare client (skips optional addon jars):
 
 ```bat
 gradlew.bat runClient -PbareClient
 ```
 
-## License / 开源协议
+## License
 
-This project is licensed under the [MIT License](LICENSE).
+[MIT](LICENSE). Third-party mods remain under their own licenses; this repository does not redistribute those jars.
 
-Third-party mods (Create, Create Nuclear, Create Big Cannons, CBC More Shells, etc.) remain under their respective licenses; this repository does not redistribute those jars.
+## Credits
 
-## Credits / 致谢
-
-- Create, Create Nuclear, Create Big Cannons, and CBC More Shells authors and communities  
-- Contributors to Create Nuclear Armaments  
+- Create, Create Nuclear, Create Big Cannons, CBC More Shells, and Create: New Age authors and communities
+- Contributors to Create Nuclear Armaments
 
 ---
 
-**Version:** 0.1.3 · **Loader:** NeoForge · **MC:** 1.21.1
+## 中文摘要
+
+面向 Create 的核武扩展（MC 1.21.1 / NeoForge）：可放置核装置，以及可选的 CBC / CBCMS 炮弹、炸弹、火箭、鱼雷。爆炸含蘑菇云、沉降地形；可选接入 Create Nuclear 与 Create: New Age 的辐射。装有 New Age 时额外加载其材料配方。沉降岩浆概率由服务端配置 `fallout.stoneLavaChance` 控制（默认 `0.0005`）。
+
+本项目部分内容由 AI 编程工具（Cursor）辅助完成；由人工审核、测试，并对发布代码负责。
+
+**Version:** 0.1.4 · **Loader:** NeoForge · **MC:** 1.21.1

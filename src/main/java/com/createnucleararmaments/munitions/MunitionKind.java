@@ -4,26 +4,26 @@ public enum MunitionKind {
     SHELL(
             "nuclear_shell",
             "createbigcannons:he_shell",
-            "createbigcannons:block/he_shell",
-            "createbigcannons:item/he_shell"
+            "createnucleararmaments:block/nuclear_shell",
+            "createnucleararmaments:item/nuclear_shell"
     ),
     TORPEDO(
             "nuclear_torpedo",
             "cbcmoreshells:short_range_torpedo",
-            "cbcmoreshells:block/short_range_torpedo",
-            "cbcmoreshells:item/short_range_torpedo"
+            "createnucleararmaments:block/nuclear_torpedo",
+            "createnucleararmaments:item/nuclear_torpedo"
     ),
     BOMB(
             "nuclear_bomb",
             "cbcmoreshells:he_bomb",
-            "cbcmoreshells:block/he_bomb",
-            "cbcmoreshells:item/he_bomb"
+            "createnucleararmaments:block/nuclear_bomb",
+            "createnucleararmaments:item/nuclear_bomb"
     ),
     ROCKET(
             "nuclear_rocket",
             "cbcmoreshells:he_rocket",
-            "cbcmoreshells:block/he_rocket",
-            "cbcmoreshells:item/he_rocket"
+            "createnucleararmaments:block/nuclear_rocket",
+            "createnucleararmaments:item/nuclear_rocket"
     );
 
     private final String idPrefix;

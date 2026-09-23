@@ -4,8 +4,6 @@
   "tier.createnucleararmaments.t2": "Operational",
   "tier.createnucleararmaments.t3": "Strategic",
   "item.createnucleararmaments.heu_compound": "Highly Enriched Uranium Compound",
-  "item.createnucleararmaments.fissile_precursor": "Fissile Precursor Billet",
-  "item.createnucleararmaments.armament_uranium_billet": "Armament Uranium Billet",
   "block.createnucleararmaments.nuclear_shell_t1": "Tactical Nuclear HE Shell",
   "block.createnucleararmaments.nuclear_shell_t2": "Operational Nuclear HE Shell",
   "block.createnucleararmaments.nuclear_shell_t3": "Strategic Nuclear HE Shell",
@@ -80,5 +78,5 @@
   "item.createnucleararmaments.nuclear_charge_t3.tooltip.behaviour1": "Starts a _30 s_ fuse and detonates in place. _TNT_ / blast chain use a shorter fuse. Flint and steel will not ignite it.",
   "item.createnucleararmaments.nuclear_charge_t3.tooltip.nuclear": "Nuclear yield _%s kt_. Blast crater _%s blocks_, radiation zone _%s blocks_, lingering radiation _%s s_.",
   "createnucleararmaments.ponder.nuclear_fill.header": "Nuclear Munition Filling",
-  "createnucleararmaments.ponder.nuclear_fill.text": "Deploy Armament Uranium Billets onto base munitions at a Sequenced Assembly line. Higher tiers require more deployment loops."
+  "createnucleararmaments.ponder.nuclear_fill.text": "At a Sequenced Assembly line, pack base munitions with HEU compound: deploy, press, fill uranium fluid, lead shielding, sturdy sheet and electron tube. Higher tiers need more loops."
 }

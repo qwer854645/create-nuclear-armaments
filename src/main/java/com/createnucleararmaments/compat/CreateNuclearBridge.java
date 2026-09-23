@@ -22,7 +22,8 @@ public final class CreateNuclearBridge {
     }
 
     /**
-     * Always applies poison. When Create Nuclear is present, also applies radiation.
+     * Always applies poison. When Create Nuclear is present, also applies its radiation.
+     * When Create: New Age is present, also applies {@code radiation_poisoning}.
      */
     public static void applyFalloutEffects(LivingEntity entity, int duration, int amplifier) {
         applyFalloutEffects(entity, duration, amplifier, false, true, true);
@@ -41,6 +42,7 @@ public final class CreateNuclearBridge {
         if (radiation != null) {
             entity.addEffect(new MobEffectInstance(radiation, duration, amplifier, ambient, visible, showIcon));
         }
+        CreateNewAgeBridge.applyRadiationPoisoning(entity, duration, amplifier, ambient, visible, showIcon);
     }
 
     private static Holder<MobEffect> radiationEffectOrNull() {

@@ -1,28 +1,28 @@
-{
+﻿{
     "variants":  {
                      "facing=down":  {
-                                         "model":  "cbcmoreshells:block/short_range_torpedo",
+                                         "model":  "createnucleararmaments:block/nuclear_torpedo",
                                          "x":  180
                                      },
                      "facing=up":  {
-                                       "model":  "cbcmoreshells:block/short_range_torpedo"
+                                       "model":  "createnucleararmaments:block/nuclear_torpedo"
                                    },
                      "facing=north":  {
-                                          "model":  "cbcmoreshells:block/short_range_torpedo",
+                                          "model":  "createnucleararmaments:block/nuclear_torpedo",
                                           "x":  90
                                       },
                      "facing=south":  {
-                                          "model":  "cbcmoreshells:block/short_range_torpedo",
+                                          "model":  "createnucleararmaments:block/nuclear_torpedo",
                                           "y":  180,
                                           "x":  90
                                       },
                      "facing=west":  {
-                                         "model":  "cbcmoreshells:block/short_range_torpedo",
+                                         "model":  "createnucleararmaments:block/nuclear_torpedo",
                                          "y":  270,
                                          "x":  90
                                      },
                      "facing=east":  {
-                                         "model":  "cbcmoreshells:block/short_range_torpedo",
+                                         "model":  "createnucleararmaments:block/nuclear_torpedo",
                                          "y":  90,
                                          "x":  90
                                      }

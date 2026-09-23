@@ -1,0 +1,79 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "create" },
+    { "type": "neoforge:mod_loaded", "modid": "create_new_age" },
+    { "type": "neoforge:mod_loaded", "modid": "cbcmoreshells" }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "cbcmoreshells:he_bomb" },
+  "transitional_item": { "id": "cbcmoreshells:he_bomb" },
+  "loops": 6,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:he_bomb" } ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create_new_age:radioactive_thorium" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create_new_age:nuclear_fuel" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create_new_age:overcharged_iron_sheet" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:he_bomb" } ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:he_bomb" },
+        { "item": "create_new_age:copper_circuit" }
+      ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:he_bomb" } ],
+      "results": [ { "id": "cbcmoreshells:he_bomb" } ]
+    }
+  ],
+  "results": [
+    { "chance": 120, "id": "createnucleararmaments:nuclear_bomb_t3" }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "create" },
+    { "type": "neoforge:mod_loaded", "modid": "create_new_age" },
+    { "type": "neoforge:mod_loaded", "modid": "cbcmoreshells" }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "cbcmoreshells:short_range_torpedo" },
+  "transitional_item": { "id": "cbcmoreshells:short_range_torpedo" },
+  "loops": 4,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:short_range_torpedo" } ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create_new_age:radioactive_thorium" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create_new_age:nuclear_fuel" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create_new_age:overcharged_iron_sheet" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:short_range_torpedo" } ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create_new_age:copper_circuit" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:short_range_torpedo" } ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    }
+  ],
+  "results": [
+    { "chance": 120, "id": "createnucleararmaments:nuclear_torpedo_t1" }
+  ]
+}

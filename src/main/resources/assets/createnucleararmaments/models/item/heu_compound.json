@@ -1,6 +1,6 @@
 ﻿{
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "createnuclear:item/enriched_yellowcake"
+    "layer0": "createnucleararmaments:item/heu_compound"
   }
 }

@@ -1,49 +1,95 @@
 {
   "neoforge:conditions": [
-    
-    
     {
       "type": "neoforge:mod_loaded",
       "modid": "create"
     },
-{
-      "type": "neoforge:mod_loaded",
-      "modid": "createbigcannons"
-    },{
+    {
       "type": "neoforge:mod_loaded",
       "modid": "createnuclear"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "createbigcannons"
     }
   ],
-  "type":  "create:sequenced_assembly",
-    "ingredient":  {
-                       "item":  "createbigcannons:he_shell"
-                   },
-    "transitional_item":  {
-                              "id":  "createbigcannons:he_shell"
-                          },
-    "loops":  48,
-    "sequence":  [
-                     {
-                         "type":  "create:deploying",
-                         "ingredients":  [
-                                             {
-                                                 "item":  "createbigcannons:he_shell"
-                                             },
-                                             {
-                                                 "item":  "createnucleararmaments:armament_uranium_billet"
-                                             }
-                                         ],
-                         "results":  [
-                                         {
-                                             "id":  "createbigcannons:he_shell"
-                                         }
-                                     ]
-                     }
-                 ],
-    "results":  [
-                    {
-                        "chance":  120,
-                        "id":  "createnucleararmaments:nuclear_shell_t2"
-                    }
-                ]
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "createbigcannons:he_shell" },
+  "transitional_item": { "id": "createbigcannons:he_shell" },
+  "loops": 12,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createbigcannons:he_shell" } ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        {
+          "type": "neoforge:single",
+          "amount": 250,
+          "fluid": "createnuclear:uranium"
+        }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "createnuclear:lead_ingot" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createbigcannons:he_shell" } ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create:electron_tube" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createbigcannons:he_shell" } ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_shell_t2"
+    }
+  ]
 }

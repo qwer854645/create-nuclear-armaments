@@ -1,0 +1,17 @@
+{
+  "parent": "createnucleararmaments:block/nuclear_shell",
+  "overrides": [
+    {
+      "model": "createnucleararmaments:item/nuclear_shell_head_fuze",
+      "predicate": {
+        "createbigcannons:fuze_state": 1.0
+      }
+    },
+    {
+      "model": "createnucleararmaments:item/nuclear_shell_base_fuze",
+      "predicate": {
+        "createbigcannons:fuze_state": 2.0
+      }
+    }
+  ]
+}

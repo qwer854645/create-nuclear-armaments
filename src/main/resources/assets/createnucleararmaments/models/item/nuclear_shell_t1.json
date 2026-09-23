@@ -1,3 +1,4 @@
-{
-  "parent": "createbigcannons:item/he_shell"
+﻿{
+  "parent": "createnucleararmaments:item/nuclear_shell"
 }
+

@@ -1,49 +1,95 @@
 {
   "neoforge:conditions": [
-    
-    
     {
       "type": "neoforge:mod_loaded",
       "modid": "create"
     },
-{
-      "type": "neoforge:mod_loaded",
-      "modid": "cbcmoreshells"
-    },{
+    {
       "type": "neoforge:mod_loaded",
       "modid": "createnuclear"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "cbcmoreshells"
     }
   ],
-  "type":  "create:sequenced_assembly",
-    "ingredient":  {
-                       "item":  "cbcmoreshells:short_range_torpedo"
-                   },
-    "transitional_item":  {
-                              "id":  "cbcmoreshells:short_range_torpedo"
-                          },
-    "loops":  192,
-    "sequence":  [
-                     {
-                         "type":  "create:deploying",
-                         "ingredients":  [
-                                             {
-                                                 "item":  "cbcmoreshells:short_range_torpedo"
-                                             },
-                                             {
-                                                 "item":  "createnucleararmaments:armament_uranium_billet"
-                                             }
-                                         ],
-                         "results":  [
-                                         {
-                                             "id":  "cbcmoreshells:short_range_torpedo"
-                                         }
-                                     ]
-                     }
-                 ],
-    "results":  [
-                    {
-                        "chance":  120,
-                        "id":  "createnucleararmaments:nuclear_torpedo_t3"
-                    }
-                ]
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "cbcmoreshells:short_range_torpedo" },
+  "transitional_item": { "id": "cbcmoreshells:short_range_torpedo" },
+  "loops": 36,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:short_range_torpedo" } ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        {
+          "type": "neoforge:single",
+          "amount": 250,
+          "fluid": "createnuclear:uranium"
+        }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "createnuclear:lead_ingot" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:short_range_torpedo" } ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "cbcmoreshells:short_range_torpedo" },
+        { "item": "create:electron_tube" }
+      ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "cbcmoreshells:short_range_torpedo" } ],
+      "results": [ { "id": "cbcmoreshells:short_range_torpedo" } ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120,
+      "id": "createnucleararmaments:nuclear_torpedo_t3"
+    }
+  ]
 }

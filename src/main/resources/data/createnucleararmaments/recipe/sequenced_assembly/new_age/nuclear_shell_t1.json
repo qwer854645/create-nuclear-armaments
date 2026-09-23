@@ -1,0 +1,79 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "create" },
+    { "type": "neoforge:mod_loaded", "modid": "create_new_age" },
+    { "type": "neoforge:mod_loaded", "modid": "createbigcannons" }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "createbigcannons:he_shell" },
+  "transitional_item": { "id": "createbigcannons:he_shell" },
+  "loops": 4,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "createnucleararmaments:heu_compound" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createbigcannons:he_shell" } ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create_new_age:radioactive_thorium" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create_new_age:nuclear_fuel" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create_new_age:overcharged_iron_sheet" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createbigcannons:he_shell" } ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createbigcannons:he_shell" },
+        { "item": "create_new_age:copper_circuit" }
+      ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createbigcannons:he_shell" } ],
+      "results": [ { "id": "createbigcannons:he_shell" } ]
+    }
+  ],
+  "results": [
+    { "chance": 120, "id": "createnucleararmaments:nuclear_shell_t1" }
+  ]
+}

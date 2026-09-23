@@ -1,3 +1,4 @@
-{
-  "parent": "cbcmoreshells:item/short_range_torpedo"
+﻿{
+  "parent": "createnucleararmaments:item/nuclear_torpedo"
 }
+
