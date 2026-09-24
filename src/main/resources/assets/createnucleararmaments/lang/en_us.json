@@ -4,6 +4,7 @@
   "tier.createnucleararmaments.t2": "Standard",
   "tier.createnucleararmaments.t3": "High-Yield",
   "item.createnucleararmaments.super_enriched_uranium_billet": "Super Enriched Uranium Billet",
+  "item.createnucleararmaments.incomplete_super_enriched_uranium_billet": "Incomplete Super Enriched Uranium Billet",
   "block.createnucleararmaments.nuclear_shell_t1": "Compact Nuclear HE Shell",
   "block.createnucleararmaments.nuclear_shell_t2": "Standard Nuclear HE Shell",
   "block.createnucleararmaments.nuclear_shell_t3": "High-Yield Nuclear HE Shell",

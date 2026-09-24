@@ -1,0 +1,67 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "create" },
+    { "type": "neoforge:mod_loaded", "modid": "createnuclear" }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": { "item": "create:brass_ingot" },
+  "transitional_item": { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" },
+  "loops": 8,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createnucleararmaments:incomplete_super_enriched_uranium_billet" },
+        { "item": "createnuclear:enriched_yellowcake" }
+      ],
+      "results": [ { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createnucleararmaments:incomplete_super_enriched_uranium_billet" },
+        { "item": "createnuclear:enriched_yellowcake" }
+      ],
+      "results": [ { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        { "item": "createnucleararmaments:incomplete_super_enriched_uranium_billet" },
+        {
+          "type": "neoforge:single",
+          "amount": 250,
+          "fluid": "createnuclear:uranium"
+        }
+      ],
+      "results": [ { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createnucleararmaments:incomplete_super_enriched_uranium_billet" },
+        { "item": "createnuclear:lead_ingot" }
+      ],
+      "results": [ { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [ { "item": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ],
+      "results": [ { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "createnucleararmaments:incomplete_super_enriched_uranium_billet" },
+        { "item": "create:sturdy_sheet" }
+      ],
+      "results": [ { "id": "createnucleararmaments:incomplete_super_enriched_uranium_billet" } ]
+    }
+  ],
+  "results": [
+    {
+      "chance": 120.0,
+      "id": "createnucleararmaments:super_enriched_uranium_billet"
+    }
+  ]
+}

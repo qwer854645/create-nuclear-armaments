@@ -21,8 +21,9 @@ Craft placeable nuclear charges and optional big-cannon munitions (shells, bombs
   - Create Nuclear: radiation effect when that mod is present
   - Create: New Age: `radiation_poisoning` plus a New Age radiation pulse (respects hazmat / shielding)
 - **Crafting paths**
-  - Create Nuclear feedstock → Super Enriched Uranium Billet → sequenced assembly
-  - Alternate Create: New Age recipes (thorium, nuclear fuel, overcharged metals, circuits) when that mod is installed
+  - Create Nuclear feedstock → Super Enriched Uranium Billet (**sequenced assembly**, long line) → munition assembly
+  - Alternate Create: New Age sequenced recipes (thorium, nuclear fuel, overcharged metals) when that mod is installed
+  - **Create-only fallback:** long nether-star sequenced assembly (disabled when Create Nuclear or Create: New Age is present)
 - **Create-style Shift tooltips** with yield / crater / radiation stats
 - **Configurable fallout lava** — `fallout.stoneLavaChance` in the server config (default `0.0005`)
 
@@ -32,13 +33,13 @@ Craft placeable nuclear charges and optional big-cannon munitions (shells, bombs
 |-----|-----------|------|
 | Minecraft 1.21.1 + NeoForge | **Yes** | Runtime |
 | [Create](https://modrinth.com/mod/create) 6.x | **Yes** | Hard dependency (CreateRegistrate, recipes, tooltips) |
-| [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | Super enriched uranium billet ingredients + radiation effect |
+| [Create Nuclear](https://modrinth.com/mod/create-nuclear) | Optional | Preferred billet sequenced-assembly ingredients + radiation effect |
 | [Create Big Cannons](https://modrinth.com/mod/create-big-cannons) | Optional | Nuclear shells |
 | [CBC More Shells](https://modrinth.com/mod/cbc-more-shells) (Military Supplement) | Optional | Nuclear bombs, rockets, torpedoes |
-| [Create: New Age](https://modrinth.com/mod/create-new-age) | Optional | Alternate billet / projectile recipes + radiation poisoning (needs **ESL** when installed) |
+| [Create: New Age](https://modrinth.com/mod/create-new-age) | Optional | Alternate billet / projectile sequenced recipes + radiation poisoning (needs **ESL** when installed) |
 | [Sable](https://modrinth.com/mod/sable) (Create Aeronautics physics) | Optional | Sub-level / physical-structure blast, radiation, and FX distances; primed charges stay on structures |
 
-**Soft loading:** With Create alone you still get placeable charges and full blast FX. CBC / CBCMS munitions register only when those mods are present. The uranium billet registers if **either** Create Nuclear or Create: New Age is present. **Sable Companion** is bundled (JiJ); with Sable installed, detonations on moving structures use global-space distances and dual plot/world cratering.
+**Soft loading:** With Create alone you still get placeable charges (TNT sequenced assembly using the nether-star billet), the uranium billet itself, and full blast FX. CBC / CBCMS munitions register only when those mods are present. Preferred billet recipes load with Create Nuclear and/or Create: New Age and replace the Create-only fallback. **Sable Companion** is bundled (JiJ); with Sable installed, detonations on moving structures use global-space distances and dual plot/world cratering.
 
 ## Gameplay notes
 

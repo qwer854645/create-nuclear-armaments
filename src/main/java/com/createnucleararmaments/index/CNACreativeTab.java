@@ -3,6 +3,7 @@ package com.createnucleararmaments.index;
 import com.createnucleararmaments.CNArmaments;
 import com.createnucleararmaments.CreateNuclearArmaments;
 import com.createnucleararmaments.munitions.NuclearTier;
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -31,6 +32,9 @@ public final class CNACreativeTab {
 
                 for (var item : CNArmaments.REGISTRATE.getAll(Registries.ITEM)) {
                     Item registeredItem = item.get();
+                    if (registeredItem instanceof SequencedAssemblyItem) {
+                        continue;
+                    }
                     if (displayedItems.add(registeredItem)) {
                         output.accept(new ItemStack(registeredItem));
                     }

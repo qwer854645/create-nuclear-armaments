@@ -4,6 +4,7 @@
   "tier.createnucleararmaments.t2": "标准",
   "tier.createnucleararmaments.t3": "高当量",
   "item.createnucleararmaments.super_enriched_uranium_billet": "超级浓缩铀坯",
+  "item.createnucleararmaments.incomplete_super_enriched_uranium_billet": "未完成的超级浓缩铀坯",
   "block.createnucleararmaments.nuclear_shell_t1": "小型核 HE 炮弹",
   "block.createnucleararmaments.nuclear_shell_t2": "标准核 HE 炮弹",
   "block.createnucleararmaments.nuclear_shell_t3": "高当量核 HE 炮弹",
