@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "createnucleararmaments:item/super_enriched_uranium_billet"
+  }
+}

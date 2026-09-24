@@ -59,9 +59,9 @@ public final class CNAPlacedNuclearDevices {
 
     private static String langName(NuclearTier tier) {
         return switch (tier) {
-            case T1 -> "Tactical Nuclear Charge";
-            case T2 -> "Operational Nuclear Charge";
-            case T3 -> "Strategic Nuclear Charge";
+            case T1 -> "Compact Nuclear Charge";
+            case T2 -> "Standard Nuclear Charge";
+            case T3 -> "High-Yield Nuclear Charge";
         };
     }
 }

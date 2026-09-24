@@ -2,6 +2,7 @@ package com.createnucleararmaments.munitions;
 
 import com.createnucleararmaments.compat.CreateNewAgeBridge;
 import com.createnucleararmaments.compat.CreateNuclearBridge;
+import com.createnucleararmaments.compat.SableSpace;
 import com.createnucleararmaments.network.CNANetwork;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,14 +11,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 public final class NuclearDetonation {
     /** Outer blast shell: stops at obsidian-tier resistance (1200). */
@@ -39,19 +40,45 @@ public final class NuclearDetonation {
         }
 
         ServerLevel serverLevel = (ServerLevel) level;
-        BlockPos pos = BlockPos.containing(center);
+        // Global blast origin: FX, entity falloff, and the world-space volume.
+        // Intersecting sub-levels get the same sphere after inverse-posing into plot space,
+        // so structure blocks at world point W match world blocks at W.
+        Vec3 globalCenter = SableSpace.projectOut(serverLevel, center);
+        BlockPos effectPos = BlockPos.containing(globalCenter);
         float radius = tier.blastRadius();
+        float fluidRadius = radius + FLUID_SOURCE_EXTRA_RADIUS;
+        float radiationRadius = tier.radiationRadius();
+        float volumeQueryRadius = Math.max(fluidRadius, radiationRadius);
 
-        CNANetwork.sendMushroomCloud(serverLevel, center, tier);
-        MushroomCloudParticleScheduler.schedule(serverLevel, center, tier);
-        playDetonationEffects(serverLevel, center, tier, pos, radius);
-        clearSphere(serverLevel, center, radius);
-        clearFluidSourcesInSphere(serverLevel, center, radius + FLUID_SOURCE_EXTRA_RADIUS);
-        applyBlastDamage(serverLevel, center, tier, radius);
-        EdgeFractureScheduler.schedule(serverLevel, center, tier, radius);
-        applyInstantRadiation(serverLevel, center, tier, radius);
-        RadiationZoneScheduler.schedule(serverLevel, center, tier);
-        FalloutVegetationScheduler.schedule(serverLevel, center, tier);
+        CNANetwork.sendMushroomCloud(serverLevel, globalCenter, tier);
+        MushroomCloudParticleScheduler.schedule(serverLevel, globalCenter, tier);
+        playDetonationEffects(serverLevel, globalCenter, tier, effectPos, radius);
+
+        List<Vec3> volumeCenters = SableSpace.blastVolumeCenters(serverLevel, center, volumeQueryRadius);
+        for (Vec3 volumeCenter : volumeCenters) {
+            applyVolumetricEffects(serverLevel, volumeCenter, tier, radius, fluidRadius);
+        }
+
+        // Entity / lingering radiation use global distances so riders and other structures match world falloff.
+        applyBlastDamage(serverLevel, globalCenter, tier, radius);
+        applyInstantRadiation(serverLevel, globalCenter, tier, radius, volumeCenters);
+        RadiationZoneScheduler.schedule(serverLevel, globalCenter, tier);
+    }
+
+    /**
+     * Identical crater / fluid / rim / fallout pass for world space and each plot space.
+     */
+    private static void applyVolumetricEffects(
+            ServerLevel level,
+            Vec3 center,
+            NuclearTier tier,
+            float radius,
+            float fluidRadius
+    ) {
+        clearSphere(level, center, radius);
+        clearFluidSourcesInSphere(level, center, fluidRadius);
+        EdgeFractureScheduler.schedule(level, center, tier, radius);
+        FalloutVegetationScheduler.schedule(level, center, tier);
     }
 
     private static void playDetonationEffects(ServerLevel level, Vec3 center, NuclearTier tier, BlockPos pos, float radius) {
@@ -80,22 +107,22 @@ public final class NuclearDetonation {
                 groundSpread,
                 0.35D,
                 groundSpread,
-                0.008D
+                0.02D
         );
         level.sendParticles(
                 ParticleTypes.LARGE_SMOKE,
                 center.x,
                 center.y,
                 center.z,
-                10 + tier * 5,
-                groundSpread * 0.9D,
+                10 + tier * 4,
+                groundSpread * 0.7D,
                 0.25D,
-                groundSpread * 0.9D,
-                0.006D
+                groundSpread * 0.7D,
+                0.015D
         );
         if (tier >= 2) {
             level.sendParticles(
-                    ParticleTypes.FLAME,
+                    ParticleTypes.LAVA,
                     center.x,
                     center.y,
                     center.z,
@@ -175,20 +202,14 @@ public final class NuclearDetonation {
         return state.getBlock().getExplosionResistance() < MAX_BREAK_RESISTANCE;
     }
 
-    private static void applyBlastDamage(ServerLevel level, Vec3 center, NuclearTier tier, float radius) {
+    private static void applyBlastDamage(ServerLevel level, Vec3 globalCenter, NuclearTier tier, float radius) {
         float maxDamage = tier.entityExplosionPower();
         float maxKnockback = 2.5F + tier.tier() * 2.0F;
         float maxFireSeconds = 5.0F + tier.tier() * 4.0F;
         DamageSource explosionSource = level.damageSources().explosion(null, null);
         DamageSource fireSource = level.damageSources().onFire();
-        AABB area = new AABB(center, center).inflate(radius);
 
-        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area)) {
-            double distance = entity.position().distanceTo(center);
-            if (distance > radius) {
-                continue;
-            }
-
+        SableSpace.forLivingInRadius(level, globalCenter, radius, (entity, distance) -> {
             float intensity = 1.0F - (float) (distance / radius);
             intensity *= intensity;
             float damage = maxDamage * intensity;
@@ -207,30 +228,34 @@ public final class NuclearDetonation {
             }
 
             if (intensity <= 0.01F) {
-                continue;
+                return;
             }
-            Vec3 away = entity.position().subtract(center);
+            Vec3 away = SableSpace.directionGlobal(level, globalCenter, entity.position());
             if (away.lengthSqr() > 1.0E-6D) {
                 away = away.normalize().scale(maxKnockback * intensity);
                 entity.push(away.x, 0.35D + intensity * 0.65D, away.z);
             }
-        }
+        });
     }
 
-    private static void applyInstantRadiation(ServerLevel level, Vec3 center, NuclearTier tier, float blastRadius) {
+    private static void applyInstantRadiation(
+            ServerLevel level,
+            Vec3 globalCenter,
+            NuclearTier tier,
+            float blastRadius,
+            List<Vec3> volumeCenters
+    ) {
         float radiationRadius = tier.radiationRadius();
-        CreateNewAgeBridge.burstRadiationField(level, BlockPos.containing(center), Math.max(1, (int) radiationRadius));
-        AABB area = new AABB(center, center).inflate(radiationRadius);
-        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area)) {
-            double distance = entity.position().distanceTo(center);
-            if (distance > radiationRadius) {
-                continue;
-            }
+        int pulseRadius = Math.max(1, (int) radiationRadius);
+        for (Vec3 volumeCenter : volumeCenters) {
+            CreateNewAgeBridge.burstRadiationField(level, BlockPos.containing(volumeCenter), pulseRadius);
+        }
+        SableSpace.forLivingInRadius(level, globalCenter, radiationRadius, (entity, distance) -> {
             double falloff = distance <= blastRadius
                     ? 1.0D - distance / blastRadius * 0.35D
                     : 1.0D - (distance - blastRadius) / (radiationRadius - blastRadius) * 0.65D;
             int duration = (int) (tier.radiationDurationTicks() * falloff) + 120;
             CreateNuclearBridge.applyFalloutEffects(entity, duration, tier.radiationAmplifier());
-        }
+        });
     }
 }

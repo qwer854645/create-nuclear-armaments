@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum NuclearTier {
-    /** ~5 kt tactical */
+    /** ~5 kt compact */
     T1(1, 12, 5, 320.0F, 0.0F, 28.0F, 1600, 2),
-    /** ~25 kt operational */
+    /** ~25 kt standard */
     T2(2, 48, 25, 560.0F, 0.0F, 40.0F, 2400, 3),
-    /** ~100 kt strategic */
+    /** ~100 kt high-yield */
     T3(3, 192, 100, 960.0F, 0.0F, 52.0F, 3200, 4);
 
     public static final NuclearTier[] VALUES = values();

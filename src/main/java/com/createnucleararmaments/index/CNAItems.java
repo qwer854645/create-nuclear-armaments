@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
  * Nuclear feedstock items. Registered when Create Nuclear and/or Create: New Age is present.
  */
 public final class CNAItems {
-    public static ItemEntry<Item> HEU_COMPOUND;
+    public static ItemEntry<Item> SUPER_ENRICHED_URANIUM_BILLET;
 
     private CNAItems() {
     }
@@ -20,13 +20,13 @@ public final class CNAItems {
             return;
         }
 
-        HEU_COMPOUND = CNArmaments.REGISTRATE
-                .item("heu_compound", Item::new)
-                .lang("Highly Enriched Uranium Compound")
+        SUPER_ENRICHED_URANIUM_BILLET = CNArmaments.REGISTRATE
+                .item("super_enriched_uranium_billet", Item::new)
+                .lang("Super Enriched Uranium Billet")
                 .register();
     }
 
     public static boolean materialsRegistered() {
-        return HEU_COMPOUND != null;
+        return SUPER_ENRICHED_URANIUM_BILLET != null;
     }
 }

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "createnucleararmaments:nuclear_charge_t1",
+    "createnucleararmaments:nuclear_charge_t2",
+    "createnucleararmaments:nuclear_charge_t3"
+  ]
+}

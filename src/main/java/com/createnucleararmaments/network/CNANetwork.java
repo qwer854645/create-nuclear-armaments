@@ -8,6 +8,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import com.createnucleararmaments.client.CNAClientNetwork;
+import com.createnucleararmaments.compat.SableSpace;
 import com.createnucleararmaments.munitions.NuclearTier;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -35,10 +36,11 @@ public final class CNANetwork {
     public static void sendMushroomCloud(ServerLevel level, Vec3 center, NuclearTier tier) {
         double viewRadius = Math.max(192.0D, tier.blastRadius() * 5.0D);
         long startTick = level.getGameTime();
+        Vec3 global = SableSpace.projectOut(level, center);
         MushroomCloudPayload payload = new MushroomCloudPayload(
-                center.x,
-                center.y,
-                center.z,
+                global.x,
+                global.y,
+                global.z,
                 tier.ordinal(),
                 startTick
         );
@@ -48,7 +50,7 @@ public final class CNANetwork {
             if (player.level() != level) {
                 continue;
             }
-            if (player.position().distanceToSqr(center) <= viewRadiusSqr) {
+            if (SableSpace.distanceSquared(level, player.position(), center) <= viewRadiusSqr) {
                 PacketDistributor.sendToPlayer(player, payload);
             }
         }

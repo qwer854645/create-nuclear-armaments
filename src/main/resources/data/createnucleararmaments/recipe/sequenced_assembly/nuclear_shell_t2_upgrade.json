@@ -22,7 +22,7 @@
       "type": "create:deploying",
       "ingredients": [
         { "item": "createnucleararmaments:nuclear_shell_t2" },
-        { "item": "createnucleararmaments:heu_compound" }
+        { "item": "createnucleararmaments:super_enriched_uranium_billet" }
       ],
       "results": [ { "id": "createnucleararmaments:nuclear_shell_t2" } ]
     },
@@ -35,7 +35,7 @@
       "type": "create:deploying",
       "ingredients": [
         { "item": "createnucleararmaments:nuclear_shell_t2" },
-        { "item": "createnucleararmaments:heu_compound" }
+        { "item": "createnucleararmaments:super_enriched_uranium_billet" }
       ],
       "results": [ { "id": "createnucleararmaments:nuclear_shell_t2" } ]
     },

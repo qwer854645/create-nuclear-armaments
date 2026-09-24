@@ -1,9 +1,8 @@
 package com.createnucleararmaments.munitions;
 
 import com.createnucleararmaments.compat.CreateNuclearBridge;
+import com.createnucleararmaments.compat.SableSpace;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public final class RadiationZoneScheduler {
     private static final class Zone {
         private final ServerLevel level;
         private final Vec3 center;
-        private final double radiusSq;
+        private final double radius;
         private final long endTick;
         private final int amplifier;
         private final int effectDuration;
@@ -96,20 +95,16 @@ public final class RadiationZoneScheduler {
         ) {
             this.level = level;
             this.center = center;
-            this.radiusSq = radius * radius;
+            this.radius = radius;
             this.endTick = endTick;
             this.amplifier = amplifier;
             this.effectDuration = effectDuration;
         }
 
         private void apply(ServerLevel currentLevel) {
-            AABB area = new AABB(center, center).inflate(Math.sqrt(radiusSq));
-            for (LivingEntity entity : currentLevel.getEntitiesOfClass(LivingEntity.class, area)) {
-                if (entity.position().distanceToSqr(center) > radiusSq) {
-                    continue;
-                }
-                CreateNuclearBridge.applyFalloutEffects(entity, effectDuration, amplifier, false, true, true);
-            }
+            SableSpace.forLivingInRadius(currentLevel, center, radius, (entity, distance) ->
+                    CreateNuclearBridge.applyFalloutEffects(entity, effectDuration, amplifier, false, true, true)
+            );
         }
     }
 }

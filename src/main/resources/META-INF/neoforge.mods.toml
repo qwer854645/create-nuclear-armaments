@@ -57,3 +57,17 @@ type = "optional"
 versionRange = "${create_new_age_version_range}"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "sablecompanion"
+type = "required"
+versionRange = "[1.6.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "sable"
+type = "optional"
+versionRange = "${sable_version_range}"
+ordering = "AFTER"
+side = "BOTH"
