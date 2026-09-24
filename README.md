@@ -49,7 +49,7 @@ Craft placeable nuclear charges and optional big-cannon munitions (shells, bombs
 
 ## Download
 
-GitHub Releases: [v0.1.4](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.4) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
+GitHub Releases: [v0.1.5](https://github.com/qwer854645/create-nuclear-armaments/releases/tag/v0.1.5) · [latest](https://github.com/qwer854645/create-nuclear-armaments/releases/latest)
 
 ## Building
 
@@ -88,4 +88,4 @@ gradlew.bat runClient -PbareClient
 
 本项目部分内容由 AI 编程工具（Cursor）辅助完成；由人工审核、测试，并对发布代码负责。
 
-**Version:** 0.1.4 · **Loader:** NeoForge · **MC:** 1.21.1
+**Version:** 0.1.5 · **Loader:** NeoForge · **MC:** 1.21.1
